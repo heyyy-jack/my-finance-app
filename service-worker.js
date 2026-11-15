@@ -1,3 +1,4 @@
+/* Firebase Cloud Messaging background notifications */
 importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js');
 
@@ -15,6 +16,7 @@ messaging.onBackgroundMessage(payload => {
   self.registration.showNotification(title, options);
 });
 
+/* Existing offline app-shell caching, with a new cache version to refresh deployment. */
 const CACHE_NAME = 'my-finance-pwa-fcm-v2';
 const APP_SHELL = [
   './',
@@ -32,7 +34,9 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
+    )
   );
   self.clients.claim();
 });
