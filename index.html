@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f3f5fb">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<meta name="theme-color" content="#f3f5fb">
+<title>My Finance — Glass Edition</title>
+<style>
+:root{--ink:#172033;--muted:#7d879b;--line:rgba(255,255,255,.72);--glass:rgba(255,255,255,.68);--blue:#5578f6;--purple:#8d73ee;--green:#20a77a;--red:#e56d78;--shadow:0 18px 50px rgba(48,62,105,.12)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(ellipse at 12% 8%,#dce7ff 0,transparent 34%),radial-gradient(ellipse at 90% 18%,#f1dcff 0,transparent 32%),linear-gradient(145deg,#f6f8ff,#edf1fa 55%,#f9f7ff);background-attachment:fixed}
+.wrap{max-width:1080px;margin:auto;padding:22px 18px 110px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}.brand{display:flex;gap:12px;align-items:center}.logo{width:46px;height:46px;border-radius:16px;background:linear-gradient(145deg,#7393ff,#8065e8);box-shadow:0 8px 22px #7187ec66;display:grid;place-items:center;color:white;font-size:22px}.brand h1{font-size:21px;margin:0;letter-spacing:-.5px}.brand small{color:var(--muted)}.topactions{display:flex;gap:8px;align-items:center}.month{border:1px solid #fff;background:#ffffff8c;backdrop-filter:blur(18px);padding:10px 14px;border-radius:14px;color:#4d5a76;font-weight:600}.iconbtn{position:relative;border:1px solid #fff;background:#ffffffb8;border-radius:14px;width:43px;height:43px;font-size:19px;color:#4e5d7d;box-shadow:0 7px 20px #6478a51a}.badgecount{position:absolute;right:-4px;top:-5px;background:#e56d78;color:white;border-radius:20px;font-size:10px;min-width:17px;padding:2px 4px}
+.glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%);box-shadow:var(--shadow);border-radius:25px}
+.hero{padding:25px 28px;background:linear-gradient(120deg,#5478f4ef,#8b72e9e8);color:white;position:relative;overflow:hidden;margin-bottom:16px}.hero:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:#ffffff19;right:-65px;top:-130px;box-shadow:0 0 0 35px #ffffff0b,0 0 0 70px #ffffff08}.hero .eyebrow{font-size:12px;opacity:.82;letter-spacing:1.2px;text-transform:uppercase}.balance{font-size:clamp(34px,6vw,48px);font-weight:750;letter-spacing:-1.7px;margin:7px 0 19px}.hero-foot{display:flex;gap:30px;flex-wrap:wrap}.hero-foot span{font-size:12px;opacity:.8;display:block;margin-bottom:4px}.hero-foot b{font-size:16px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.stat{padding:17px 19px}.stat .label{color:var(--muted);font-size:13px}.stat strong{display:block;font-size:22px;margin:8px 0 4px;letter-spacing:-.5px}.stat small{color:var(--muted)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}.green{color:var(--green)}.red{color:var(--red)}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:15px}.panel{padding:21px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}.panel h2{font-size:17px;margin:0}.sub{font-size:12px;color:var(--muted)}.bar{height:9px;background:#e8ebf5;border-radius:20px;overflow:hidden;margin:12px 0 8px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#5e83f7,#a17cf0);border-radius:20px}.goal{padding:14px 0;border-top:1px solid #e8eaf2}.goal:first-of-type{border:0}.goalrow{display:flex;justify-content:space-between;gap:10px;font-size:13px}.goalrow b{font-size:13px}.actions{display:flex;gap:9px;flex-wrap:wrap}.btn{border:0;border-radius:14px;padding:11px 15px;font-weight:650;color:white;background:linear-gradient(135deg,#5c80f7,#8c70e9);box-shadow:0 8px 18px #7084e544;cursor:pointer}.btn.secondary{background:#ffffffbd;color:#53617d;border:1px solid #fff;box-shadow:none}.btn.small{padding:8px 11px;font-size:12px}.transactions{margin-top:15px}.transaction{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #e9ebf3}.ico{width:40px;height:40px;border-radius:14px;background:#edf1ff;display:grid;place-items:center;font-size:18px}.tx{flex:1;min-width:0}.tx b{font-size:13px;display:block;overflow-wrap:anywhere}.tx small{color:var(--muted);font-size:11px}.amount{font-weight:700;font-size:13px;white-space:nowrap}.empty{color:var(--muted);font-size:13px;padding:18px 0;text-align:center}
+nav{position:fixed;bottom:13px;left:50%;transform:translateX(-50%);display:flex;gap:5px;padding:7px;background:#ffffffd9;border:1px solid #fff;border-radius:20px;box-shadow:0 12px 35px #3f4d792b;backdrop-filter:blur(22px);z-index:3;max-width:calc(100vw - 18px);overflow:auto}.navbtn{border:0;background:transparent;color:#7e89a1;padding:10px 13px;border-radius:13px;font-weight:600;cursor:pointer;white-space:nowrap}.navbtn.active{background:linear-gradient(135deg,#5d80f7,#8e73e9);color:white}
+.tabpanel{display:none}.tabpanel.active{display:block}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0;color:#64708a;font-size:12px;font-weight:650}.field input,.field select{width:100%;padding:12px;border:1px solid #e1e6f2;border-radius:13px;background:#ffffffc9;font:inherit;color:var(--ink)}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.full{grid-column:1/-1}.rowline{display:flex;justify-content:space-between;gap:10px;align-items:center}.listrow{padding:12px 0;border-bottom:1px solid #e9ebf3}.listrow:last-child{border:0}.notice{font-size:12px;color:#7b6331;background:#fff5db;border:1px solid #f1dfad;border-radius:12px;padding:11px;margin-top:12px;line-height:1.45}.modal{position:fixed;inset:0;background:#18223b55;backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal.show{display:flex}.dialog{width:min(490px,100%);max-height:88vh;overflow:auto;padding:23px;background:#f8f9ff}.dialog h2{margin:0 0 14px}.form-actions{display:flex;gap:9px;margin-top:16px}.form-actions button{flex:1}.toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%);background:#263b68;color:white;padding:11px 16px;border-radius:13px;box-shadow:0 8px 30px #0003;display:none;z-index:20}.toast.show{display:block}
+@media(max-width:720px){.wrap{padding:18px 13px 105px}.stats{grid-template-columns:1fr 1fr;gap:9px}.stats .stat:last-child{grid-column:span 2}.grid{grid-template-columns:1fr}.hero{padding:22px}.month{font-size:11px;padding:9px}.panel{padding:18px}.stat{padding:14px}.stat strong{font-size:19px}.navbtn{padding:10px 11px;font-size:12px}}
+@media(max-width:390px){.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.brand h1{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div class="brand"><div class="logo">✦</div><div><h1>My Finance</h1><small>Glass Edition · Your money, in balance.</small></div></div><div class="topactions"><button class="iconbtn" id="bell" aria-label="Notifications">♧<span class="badgecount" id="notificationCount" hidden>0</span></button><div class="month" id="monthLabel"></div></div></header>
+<section class="hero"><div class="eyebrow">Available balance · this month</div><div class="balance" id="balance">₹0</div><div class="hero-foot"><div><span>INCOME</span><b id="heroIncome">₹0</b></div><div><span>EXPENSES</span><b id="heroExpense">₹0</b></div><div><span>SAVED</span><b id="heroSaved">₹0</b></div></div></section>
+<section class="stats"><div class="glass stat"><div class="label"><i class="dot" style="background:#20a77a"></i>Total income</div><strong class="green" id="income">₹0</strong><small>Money received</small></div><div class="glass stat"><div class="label"><i class="dot" style="background:#e56d78"></i>Total expenses</div><strong class="red" id="expense">₹0</strong><small>Money spent</small></div><div class="glass stat"><div class="label"><i class="dot" style="background:#8d73ee"></i>Savings rate</div><strong id="rate">0%</strong><small>Of this month's income</small></div></section>
+<section class="tabpanel active" id="dashboard">
+<div class="grid">
+<section class="glass panel"><div class="panel-head"><h2>Monthly budget</h2><button class="btn secondary small" id="setBudgetBtn">Set budget</button></div><div class="sub">Total monthly spending</div><div class="rowline"><b id="budgetNumbers">₹0 / ₹0</b><b id="budgetPercent">0%</b></div><div class="bar"><i id="budgetBar"></i></div><div class="rowline"><span class="sub" id="budgetHint">Set a budget to track spending.</span><b id="budgetRemain">₹0 left</b></div><div class="actions" style="margin-top:18px"><button class="btn" onclick="openTransaction('expense')">＋ Add expense</button><button class="btn secondary" onclick="openTransaction('income')">＋ Add income</button></div></section>
+<section class="glass panel"><div class="panel-head"><h2>Savings goals</h2><button class="btn secondary small" id="addGoalBtn">＋ Goal</button></div><div id="goalPreview" class="empty">No goals yet. Create your first savings goal.</div></section>
+</div>
+<section class="glass panel transactions"><div class="panel-head"><h2>Recent activity</h2><span class="sub">Latest entries</span></div><div id="recentList" class="empty">No transactions yet.</div></section>
+</section>
+<section class="tabpanel" id="transactions"><section class="glass panel"><div class="panel-head"><h2>All transactions</h2><button class="btn" onclick="openTransaction('expense')">＋ Add new</button></div><div id="allTransactions" class="empty">No transactions yet.</div></section></section>
+<section class="tabpanel" id="goalsPanel"><div class="grid"><section class="glass panel"><div class="panel-head"><h2>Savings goals</h2><button class="btn" id="addGoalBtn2">＋ Add goal</button></div><div id="allGoals" class="empty">No goals yet.</div></section><section class="glass panel"><h2>Category budgets</h2><form id="categoryBudgetForm"><label class="field">Category<select id="budgetCategory"><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Education</option><option>Entertainment</option><option>Other</option></select></label><label class="field">Monthly limit (₹)<input id="categoryLimit" type="number" min="1" required placeholder="e.g. 3000"></label><button class="btn">Save category budget</button></form><div id="categoryBudgetList"></div></section></div></section>
+<section class="tabpanel" id="reports"><section class="glass panel"><h2>Monthly report</h2><div class="stats"><div class="stat"><label class="sub">Income</label><strong class="green" id="reportIncome">₹0</strong></div><div class="stat"><label class="sub">Expenses</label><strong class="red" id="reportExpense">₹0</strong></div><div class="stat"><label class="sub">Net savings</label><strong id="reportSavings">₹0</strong></div></div><h2 style="margin-top:20px">Spending by category</h2><div id="categoryReport" class="empty">No spending recorded.</div><div class="notice">Net savings here means recorded income minus recorded expenses for the selected calendar month. It is not a bank balance.</div></section></section>
+<section class="tabpanel" id="settings"><div class="grid"><section class="glass panel"><h2>Backup & restore</h2><p class="sub">Export a JSON backup regularly. Restoring a backup replaces the records currently stored in this browser.</p><div class="actions"><button class="btn" id="exportBtn">↓ Export backup</button><button class="btn secondary" id="importBtn">↑ Restore backup</button><input id="restoreFile" type="file" accept="application/json,.json" hidden></div><div class="notice">Your records are stored locally in this browser on this device. Clearing Chrome site data, resetting/uninstalling the browser, or changing phones can remove them unless you export a backup first.</div></section><section class="glass panel"><h2>Notifications</h2><p class="sub">Budget alerts appear inside this app. You can also allow browser notifications while the app is open.</p><button class="btn" id="enableBrowserNotifications">Enable browser alerts</button><p class="sub" id="permissionStatus" style="margin-top:10px">Browser permission not requested.</p><div class="notice">A normal HTML page cannot reliably send scheduled daily notifications while fully closed. For that, we will need a native Android app or a properly configured installable web app.</div></section></div></section>
+<nav><button class="navbtn active" data-tab="dashboard">⌂ Home</button><button class="navbtn" data-tab="transactions">Transactions</button><button class="navbtn" data-tab="goalsPanel">Goals</button><button class="navbtn" data-tab="reports">Reports</button><button class="navbtn" data-tab="settings">Settings</button></nav>
+</div>
+<div class="modal" id="transactionModal"><div class="glass dialog"><h2 id="transactionTitle">Add expense</h2><form id="transactionForm"><div class="formgrid"><label class="field">Type<select id="txType"><option value="expense">Expense</option><option value="income">Income</option></select></label><label class="field">Amount (₹)<input id="txAmount" type="number" min="0.01" step="0.01" required placeholder="0.00"></label><label class="field">Category<select id="txCategory"><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Education</option><option>Entertainment</option><option>Salary</option><option>Freelance</option><option>Other</option></select></label><label class="field">Date<input id="txDate" type="date" required></label><label class="field full">Note (optional)<input id="txNote" maxlength="100" placeholder="What was this for?"></label></div><div class="form-actions"><button class="btn" type="submit">Save entry</button><button class="btn secondary" type="button" data-close="transactionModal">Cancel</button></div></form></div></div>
+<div class="modal" id="goalModal"><div class="glass dialog"><h2>New savings goal</h2><form id="goalForm"><label class="field">Goal name<input id="goalName" required maxlength="50" placeholder="e.g. New phone"></label><div class="formgrid"><label class="field">Target amount (₹)<input id="goalTarget" type="number" min="1" required></label><label class="field">Already saved (₹)<input id="goalSaved" type="number" min="0" value="0"></label></div><label class="field">Target date (optional)<input id="goalDate" type="date"></label><div class="form-actions"><button class="btn">Create goal</button><button class="btn secondary" type="button" data-close="goalModal">Cancel</button></div></form></div></div>
+<div class="modal" id="budgetModal"><div class="glass dialog"><h2>Set monthly budget</h2><form id="budgetForm"><label class="field">Monthly budget (₹)<input id="monthlyBudgetInput" type="number" min="1" required placeholder="e.g. 20000"></label><div class="form-actions"><button class="btn">Save budget</button><button class="btn secondary" type="button" data-close="budgetModal">Cancel</button></div></form></div></div>
+<div class="modal" id="notificationModal"><div class="glass dialog"><div class="panel-head"><h2>Notifications</h2><button class="btn secondary small" id="clearNotifications">Clear all</button></div><div id="notificationList" class="empty">You're all caught up.</div><div class="form-actions"><button class="btn secondary" type="button" data-close="notificationModal">Close</button></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+'use strict';
+const STORAGE_KEY='myFinance_v1';
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toISOString().slice(0,10);
+const monthKey=()=>today().slice(0,7);
+const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(Number(n)||0);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let data={entries:[],goals:[],budget:0,categoryBudgets:{},notifications:[],lastDailySummary:''};
+function loadData(){
+ try{
+  const raw=localStorage.getItem(STORAGE_KEY);
+  if(raw){const old=JSON.parse(raw);if(old&&typeof old==='object')data={...data,...old};}
+ }catch(e){console.warn('Saved data could not be read',e);}
+ if(!Array.isArray(data.entries))data.entries=[];
+ if(!Array.isArray(data.goals))data.goals=[];
+ if(!data.categoryBudgets||typeof data.categoryBudgets!=='object')data.categoryBudgets={};
+ if(!Array.isArray(data.notifications))data.notifications=[];
+ // Compatibility: earlier build stored entries as {kind,description,amount,category,date}.
+ data.entries=data.entries.map(x=>({...x,type:x.type||(x.kind==='income'?'income':'expense'),note:x.note??x.description??''}));
+}
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){showToast('Could not save. Please export a backup and check browser storage.');}}
+function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2500);}
+function monthEntries(){return data.entries.filter(x=>String(x.date||'').slice(0,7)===monthKey());}
+function totals(items){return items.reduce((a,x)=>{a[x.type]=(a[x.type]||0)+Number(x.amount||0);return a;},{income:0,expense:0});}
+function addNotification(title,message,key){
+ if(data.notifications.some(n=>n.key===key))return;
+ data.notifications.unshift({id:Date.now()+Math.random(),key,title,message,createdAt:new Date().toISOString(),read:false});
+ data.notifications=data.notifications.slice(0,80);
+ saveData();
+}
+function evaluateBudgetAlerts(){
+ const items=monthEntries(),spent=totals(items).expense;
+ if(Number(data.budget)>0){
+  [75,90,100].forEach(p=>{if(spent>=Number(data.budget)*p/100)addNotification('Monthly budget alert',`You have used ${p}% of your monthly budget (${money(spent)} spent).`,`${monthKey()}-total-${p}`);});
+ }
+ Object.entries(data.categoryBudgets).forEach(([cat,limit])=>{
+  const value=items.filter(x=>x.type==='expense'&&x.category===cat).reduce((s,x)=>s+Number(x.amount||0),0);
+  [75,90,100].forEach(p=>{if(Number(limit)>0&&value>=Number(limit)*p/100)addNotification(`${cat} budget alert`,`${cat} spending has reached ${p}% of its monthly limit.`,`${monthKey()}-${cat}-${p}`);});
+ });
+}
+function maybeDailySummary(){
+ const key=today();if(data.lastDailySummary===key)return;
+ const todays=data.entries.filter(x=>x.date===key),s=totals(todays);
+ if(todays.length){addNotification('Daily money summary',`Today: ${money(s.expense)} spent and ${money(s.income)} received across ${todays.length} entries.`,`${key}-daily-summary`);}
+ data.lastDailySummary=key;saveData();
+}
+function renderTransaction(x){
+ const sign=x.type==='income'?'+':'−',color=x.type==='income'?'green':'red',symbol=x.type==='income'?'↙':'↗';
+ return `<div class="transaction"><div class="ico">${symbol}</div><div class="tx"><b>${esc(x.category||'Other')}${x.note?' · '+esc(x.note):''}</b><small>${esc(x.date||'')} · ${x.type}</small></div><div class="amount ${color}">${sign}${money(x.amount)} <button class="btn secondary small" style="padding:5px 8px;margin-left:4px" onclick="deleteEntry('${esc(x.id)}')">×</button></div></div>`;
+}
+function renderGoals(){
+ const markup=data.goals.map((g,i)=>{const target=Number(g.target)||0,saved=Number(g.current??g.saved)||0,p=target?Math.min(100,saved/target*100):0;return `<div class="goal"><div class="goalrow"><b>${esc(g.name)}</b><span>${Math.round(p)}%</span></div><div class="bar"><i style="width:${p}%"></i></div><div class="goalrow"><span class="sub">${money(saved)} / ${money(target)}</span><button class="btn secondary small" onclick="addGoalSavings(${i})">＋ Add savings</button></div></div>`;}).join('');
+ $('goalPreview').innerHTML=markup||'<div class="empty">No goals yet. Create your first savings goal.</div>';
+ $('allGoals').innerHTML=markup||'<div class="empty">No goals yet.</div>';
+}
+function render(){
+ evaluateBudgetAlerts();
+ const items=monthEntries(),s=totals(items),net=s.income-s.expense;
+ $('monthLabel').textContent=new Date().toLocaleDateString('en-IN',{month:'short',year:'numeric'});
+ $('balance').textContent=money(net);$('heroIncome').textContent=money(s.income);$('heroExpense').textContent=money(s.expense);$('heroSaved').textContent=money(Math.max(0,net));
+ $('income').textContent=money(s.income);$('expense').textContent=money(s.expense);$('rate').textContent=s.income?Math.round(net/s.income*100)+'%':'0%';
+ $('budgetNumbers').textContent=`${money(s.expense)} / ${money(data.budget)}`;
+ const pct=data.budget?Math.min(100,s.expense/data.budget*100):0;
+ $('budgetBar').style.width=pct+'%';$('budgetPercent').textContent=Math.round(data.budget?s.expense/data.budget*100:0)+'%';
+ $('budgetRemain').textContent=money(Math.max(0,Number(data.budget)-s.expense))+' left';
+ $('budgetHint').textContent=!data.budget?'Set a budget to track spending.':pct>=100?'You have reached your budget limit.':pct>=90?'You are close to your budget limit.':'Budget usage this month.';
+ const sorted=[...data.entries].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+ $('recentList').innerHTML=sorted.slice(0,7).map(renderTransaction).join('')||'<div class="empty">No transactions yet. Add your first income or expense.</div>';
+ $('allTransactions').innerHTML=sorted.map(renderTransaction).join('')||'<div class="empty">Your transaction history will appear here.</div>';
+ renderGoals();
+ const cats={};items.filter(x=>x.type==='expense').forEach(x=>cats[x.category||'Other']=(cats[x.category||'Other']||0)+Number(x.amount||0));
+ $('categoryBudgetList').innerHTML=Object.entries(data.categoryBudgets).map(([cat,limit])=>{const used=cats[cat]||0;return `<div class="listrow"><div class="rowline"><b>${esc(cat)}</b><span>${money(used)} / ${money(limit)}</span></div><div class="bar"><i style="width:${Math.min(100,used/limit*100)}%"></i></div></div>`;}).join('');
+ $('reportIncome').textContent=money(s.income);$('reportExpense').textContent=money(s.expense);$('reportSavings').textContent=money(net);
+ $('categoryReport').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([cat,value])=>`<div class="listrow"><div class="rowline"><span>${esc(cat)}</span><b>${money(value)}</b></div><div class="bar"><i style="width:${s.expense?value/s.expense*100:0}%"></i></div></div>`).join('')||'<div class="empty">No spending recorded this month.</div>';
+ const unread=data.notifications.filter(n=>!n.read).length;$('notificationCount').textContent=unread;$('notificationCount').hidden=!unread;
+}
+function openTransaction(type){$('txType').value=type;$('transactionTitle').textContent=type==='income'?'Add income':'Add expense';$('txDate').value=today();$('txCategory').value=type==='income'?'Salary':'Food';$('txAmount').value='';$('txNote').value='';$('transactionModal').classList.add('show');}
+function closeModal(id){$(id).classList.remove('show');}
+function deleteEntry(id){if(!confirm('Delete this transaction?'))return;data.entries=data.entries.filter(x=>String(x.id)!==String(id));saveData();render();showToast('Transaction deleted');}
+function addGoalSavings(i){const amount=Number(prompt('How much did you save towards this goal?','0'));if(amount>0){data.goals[i].current=Number(data.goals[i].current??data.goals[i].saved??0)+amount;saveData();render();showToast('Savings goal updated');}}
+function openNotifications(){data.notifications.forEach(n=>n.read=true);saveData();render();$('notificationList').innerHTML=data.notifications.map(n=>`<div class="listrow"><b>${esc(n.title)}</b><div class="sub">${esc(n.message)}</div><small class="sub">${new Date(n.createdAt).toLocaleString()}</small></div>`).join('')||'<div class="empty">You are all caught up.</div>';$('notificationModal').classList.add('show');}
+function exportBackup(){const payload={...data,exportedAt:new Date().toISOString(),app:'My Finance Glass Edition'};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='my-finance-backup-'+today()+'.json';a.click();URL.revokeObjectURL(url);showToast('Backup exported');}
+function requestBrowserNotifications(){if(!('Notification'in window)){showToast('This browser does not support notifications.');return;}Notification.requestPermission().then(permission=>{$('permissionStatus').textContent='Browser notification permission: '+permission;if(permission==='granted'){new Notification('My Finance',{body:'Browser alerts are enabled while the app is active.'});showToast('Browser alerts enabled');}else showToast('Notification permission was not granted.');});}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tabpanel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));}));
+$('setBudgetBtn').onclick=()=>$('budgetModal').classList.add('show');$('addGoalBtn').onclick=$('addGoalBtn2').onclick=()=>$('goalModal').classList.add('show');$('bell').onclick=openNotifications;
+$('transactionForm').onsubmit=e=>{e.preventDefault();const amount=Number($('txAmount').value);if(!(amount>0))return;data.entries.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),type:$('txType').value,amount,category:$('txCategory').value,date:$('txDate').value,note:$('txNote').value.trim()});saveData();closeModal('transactionModal');render();showToast('Entry saved automatically');};
+$('goalForm').onsubmit=e=>{e.preventDefault();data.goals.push({name:$('goalName').value.trim(),target:Number($('goalTarget').value),current:Number($('goalSaved').value)||0,date:$('goalDate').value});saveData();e.target.reset();closeModal('goalModal');render();showToast('Savings goal added');};
+$('budgetForm').onsubmit=e=>{e.preventDefault();data.budget=Number($('monthlyBudgetInput').value);saveData();closeModal('budgetModal');render();showToast('Monthly budget saved');};
+$('categoryBudgetForm').onsubmit=e=>{e.preventDefault();data.categoryBudgets[$('budgetCategory').value]=Number($('categoryLimit').value);saveData();e.target.reset();render();showToast('Category budget saved');};
+$('exportBtn').onclick=exportBackup;
+$('importBtn').onclick=()=>$('restoreFile').click();
+$('restoreFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const v=JSON.parse(await f.text());const entries=Array.isArray(v.entries)?v.entries:Array.isArray(v.transactions)?v.transactions:null;if(!entries||!Array.isArray(v.goals))throw Error('Invalid backup');if(!confirm('Restore this backup? Current data will be replaced. Export a backup first if needed.'))return;data={...data,...v,entries:entries.map(x=>({...x,type:x.type||(x.kind==='income'?'income':'expense'),note:x.note??x.description??''})),goals:v.goals,categoryBudgets:v.categoryBudgets||{},notifications:v.notifications||[]};saveData();render();showToast('Backup restored');}catch(err){alert('This does not look like a valid My Finance backup.');}e.target.value='';};
+$('clearNotifications').onclick=()=>{data.notifications=[];saveData();render();$('notificationList').innerHTML='<div class="empty">Notifications cleared.</div>';};
+$('enableBrowserNotifications').onclick=requestBrowserNotifications;
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id);}));
+loadData();maybeDailySummary();render();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(err => console.warn('Service worker registration failed:', err));
+  });
+}
+</script>
+</body></html>
