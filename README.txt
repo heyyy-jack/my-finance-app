@@ -1,22 +1,30 @@
-MY FINANCE — FIREBASE PUSH ENABLED PWA
+MY FINANCE — UPDATE BASED ON YOUR NEW INDEX FILE
 
-Files:
-- index.html
-- service-worker.js
-- manifest.json
-- icons/
+Included:
+- index.html: your newly uploaded version, preserved unchanged
+- service-worker.js: Firebase background push handler plus offline caching
 
-DEPLOYMENT
-1. Upload the contents of this folder to a static HTTPS host (Firebase Hosting is suitable).
-2. Open the HTTPS site in Chrome on Android.
-3. Add it to the Home screen and open the installed app.
-4. Open Settings > Notifications > Enable push notifications.
-5. Copy the device registration token shown in the app.
-6. In Firebase Console > Messaging, create a test message and send it to that registration token.
+Upload/replace these two files in the ROOT of your existing GitHub repository.
+Do not delete or replace manifest.json or the icons folder.
 
-IMPORTANT
-- The VAPID key is a public key and is used by the browser to register for FCM.
-- Never publish a Firebase service-account private key or admin credentials in this folder.
-- This setup registers the device and displays incoming FCM messages.
-- To send automatic budget alerts while the app is closed, a trusted backend/cloud function must send FCM messages. This PWA does not upload transaction records, and it cannot calculate private local spending while closed on a server.
-- Firebase project configuration values and API keys in a web app are client configuration, not service-account secrets. Configure Firebase authorized domains and security rules as needed.
+After GitHub Pages deploys:
+1. Open the installed My Finance app while online.
+2. Open Settings > System notifications > Enable.
+3. Allow notifications.
+4. Copy the device token shown in Settings.
+5. Use Firebase Console > Messaging to send a test message to that token.
+
+Notes:
+- This package does not include any service-account private key.
+- FCM push delivery requires a sender (Firebase Console for testing; trusted backend/Cloud Function for automatic scheduled or budget-triggered messages).
+- Existing local data key myFinance_v1 is preserved in index.html.
+
+
+MINIMAL iOS-STYLE ICON UPDATE
+Replace icons/icon-192.png, icons/icon-512.png, and icons/icon-512-maskable.png with the versions in this ZIP.
+Keep manifest.json and all other files unchanged. After deployment, remove and reinstall the PWA on your phone to refresh its launcher icon.
+
+
+LATEST UI UPDATE
+The index.html in this package is the latest UI file supplied by the user. It replaces the previous index.html while keeping the Firebase service worker, manifest, and minimal iOS-style app icons from the existing package.
+Upload/replace the files in the repository root and icons folder as applicable. Do not delete existing manifest.json or other required assets.
