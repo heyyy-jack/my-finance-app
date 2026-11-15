@@ -1,27 +1,21 @@
-// Firebase Cloud Messaging background handler.
-importScripts("https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js");
+importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js');
 
-firebase.initializeApp({
-  apiKey: "AIzaSyBGFiYS89iQzDdZfqo6B-3D6pSoemqDBnc",
-  authDomain: "myfinance-adaf1.firebaseapp.com",
-  projectId: "myfinance-adaf1",
-  messagingSenderId: "462114551555",
-  appId: "1:462114551555:web:21e0d9a3eb42ec6e0adb36"
-});
+firebase.initializeApp({"apiKey":"AIzaSyBGFiYS89iQzDdZfqo6B-3D6pSoemqDBnc","authDomain":"myfinance-adaf1.firebaseapp.com","projectId":"myfinance-adaf1","storageBucket":"myfinance-adaf1.firebasestorage.app","messagingSenderId":"462114551555","appId":"1:462114551555:web:21e0d9a3eb42ec6e0adb36","measurementId":"G-L2674Y7E6N"});
 const messaging = firebase.messaging();
+
 messaging.onBackgroundMessage(payload => {
-  const title = payload.notification?.title || payload.data?.title || "My Finance";
+  const title = (payload.notification && payload.notification.title) || 'My Finance';
   const options = {
-    body: payload.notification?.body || payload.data?.body || "You have a new update.",
-    icon: "./icons/icon-192.png",
-    badge: "./icons/icon-192.png",
+    body: (payload.notification && payload.notification.body) || 'You have a new update.',
+    icon: './icons/icon-192.png',
+    badge: './icons/icon-192.png',
     data: payload.data || {}
   };
   self.registration.showNotification(title, options);
 });
 
-const CACHE_NAME = 'my-finance-pwa-v1';
+const CACHE_NAME = 'my-finance-pwa-fcm-v2';
 const APP_SHELL = [
   './',
   './index.html',
@@ -57,12 +51,12 @@ self.addEventListener('fetch', event => {
   );
 });
 
-self.addEventListener("notificationclick", event => {
+self.addEventListener('notificationclick', event => {
   event.notification.close();
-  event.waitUntil(clients.matchAll({ type: "window", includeUncontrolled: true }).then(clientList => {
-    for (const client of clientList) {
-      if ("focus" in client) return client.focus();
+  event.waitUntil(clients.matchAll({type:'window', includeUncontrolled:true}).then(windowClients => {
+    for (const client of windowClients) {
+      if ('focus' in client) return client.focus();
     }
-    if (clients.openWindow) return clients.openWindow("./");
+    if (clients.openWindow) return clients.openWindow('./');
   }));
 });

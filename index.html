@@ -1,61 +1,382 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f3f5fb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f2f2f7" id="themeMeta">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" href="./icons/icon-192.png">
-<meta name="theme-color" content="#f3f5fb">
-<title>My Finance — Glass Edition</title>
+<title>My Finance</title>
 <style>
-:root{--ink:#172033;--muted:#7d879b;--line:rgba(255,255,255,.72);--glass:rgba(255,255,255,.68);--blue:#5578f6;--purple:#8d73ee;--green:#20a77a;--red:#e56d78;--shadow:0 18px 50px rgba(48,62,105,.12)}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(ellipse at 12% 8%,#dce7ff 0,transparent 34%),radial-gradient(ellipse at 90% 18%,#f1dcff 0,transparent 32%),linear-gradient(145deg,#f6f8ff,#edf1fa 55%,#f9f7ff);background-attachment:fixed}
-.wrap{max-width:1080px;margin:auto;padding:22px 18px 110px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}.brand{display:flex;gap:12px;align-items:center}.logo{width:46px;height:46px;border-radius:16px;background:linear-gradient(145deg,#7393ff,#8065e8);box-shadow:0 8px 22px #7187ec66;display:grid;place-items:center;color:white;font-size:22px}.brand h1{font-size:21px;margin:0;letter-spacing:-.5px}.brand small{color:var(--muted)}.topactions{display:flex;gap:8px;align-items:center}.month{border:1px solid #fff;background:#ffffff8c;backdrop-filter:blur(18px);padding:10px 14px;border-radius:14px;color:#4d5a76;font-weight:600}.iconbtn{position:relative;border:1px solid #fff;background:#ffffffb8;border-radius:14px;width:43px;height:43px;font-size:19px;color:#4e5d7d;box-shadow:0 7px 20px #6478a51a}.badgecount{position:absolute;right:-4px;top:-5px;background:#e56d78;color:white;border-radius:20px;font-size:10px;min-width:17px;padding:2px 4px}
-.glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%);box-shadow:var(--shadow);border-radius:25px}
-.hero{padding:25px 28px;background:linear-gradient(120deg,#5478f4ef,#8b72e9e8);color:white;position:relative;overflow:hidden;margin-bottom:16px}.hero:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:#ffffff19;right:-65px;top:-130px;box-shadow:0 0 0 35px #ffffff0b,0 0 0 70px #ffffff08}.hero .eyebrow{font-size:12px;opacity:.82;letter-spacing:1.2px;text-transform:uppercase}.balance{font-size:clamp(34px,6vw,48px);font-weight:750;letter-spacing:-1.7px;margin:7px 0 19px}.hero-foot{display:flex;gap:30px;flex-wrap:wrap}.hero-foot span{font-size:12px;opacity:.8;display:block;margin-bottom:4px}.hero-foot b{font-size:16px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.stat{padding:17px 19px}.stat .label{color:var(--muted);font-size:13px}.stat strong{display:block;font-size:22px;margin:8px 0 4px;letter-spacing:-.5px}.stat small{color:var(--muted)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}.green{color:var(--green)}.red{color:var(--red)}
-.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:15px}.panel{padding:21px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}.panel h2{font-size:17px;margin:0}.sub{font-size:12px;color:var(--muted)}.bar{height:9px;background:#e8ebf5;border-radius:20px;overflow:hidden;margin:12px 0 8px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#5e83f7,#a17cf0);border-radius:20px}.goal{padding:14px 0;border-top:1px solid #e8eaf2}.goal:first-of-type{border:0}.goalrow{display:flex;justify-content:space-between;gap:10px;font-size:13px}.goalrow b{font-size:13px}.actions{display:flex;gap:9px;flex-wrap:wrap}.btn{border:0;border-radius:14px;padding:11px 15px;font-weight:650;color:white;background:linear-gradient(135deg,#5c80f7,#8c70e9);box-shadow:0 8px 18px #7084e544;cursor:pointer}.btn.secondary{background:#ffffffbd;color:#53617d;border:1px solid #fff;box-shadow:none}.btn.small{padding:8px 11px;font-size:12px}.transactions{margin-top:15px}.transaction{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #e9ebf3}.ico{width:40px;height:40px;border-radius:14px;background:#edf1ff;display:grid;place-items:center;font-size:18px}.tx{flex:1;min-width:0}.tx b{font-size:13px;display:block;overflow-wrap:anywhere}.tx small{color:var(--muted);font-size:11px}.amount{font-weight:700;font-size:13px;white-space:nowrap}.empty{color:var(--muted);font-size:13px;padding:18px 0;text-align:center}
-nav{position:fixed;bottom:13px;left:50%;transform:translateX(-50%);display:flex;gap:5px;padding:7px;background:#ffffffd9;border:1px solid #fff;border-radius:20px;box-shadow:0 12px 35px #3f4d792b;backdrop-filter:blur(22px);z-index:3;max-width:calc(100vw - 18px);overflow:auto}.navbtn{border:0;background:transparent;color:#7e89a1;padding:10px 13px;border-radius:13px;font-weight:600;cursor:pointer;white-space:nowrap}.navbtn.active{background:linear-gradient(135deg,#5d80f7,#8e73e9);color:white}
-.tabpanel{display:none}.tabpanel.active{display:block}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0;color:#64708a;font-size:12px;font-weight:650}.field input,.field select{width:100%;padding:12px;border:1px solid #e1e6f2;border-radius:13px;background:#ffffffc9;font:inherit;color:var(--ink)}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.full{grid-column:1/-1}.rowline{display:flex;justify-content:space-between;gap:10px;align-items:center}.listrow{padding:12px 0;border-bottom:1px solid #e9ebf3}.listrow:last-child{border:0}.notice{font-size:12px;color:#7b6331;background:#fff5db;border:1px solid #f1dfad;border-radius:12px;padding:11px;margin-top:12px;line-height:1.45}.modal{position:fixed;inset:0;background:#18223b55;backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal.show{display:flex}.dialog{width:min(490px,100%);max-height:88vh;overflow:auto;padding:23px;background:#f8f9ff}.dialog h2{margin:0 0 14px}.form-actions{display:flex;gap:9px;margin-top:16px}.form-actions button{flex:1}.toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%);background:#263b68;color:white;padding:11px 16px;border-radius:13px;box-shadow:0 8px 30px #0003;display:none;z-index:20}.toast.show{display:block}
-@media(max-width:720px){.wrap{padding:18px 13px 105px}.stats{grid-template-columns:1fr 1fr;gap:9px}.stats .stat:last-child{grid-column:span 2}.grid{grid-template-columns:1fr}.hero{padding:22px}.month{font-size:11px;padding:9px}.panel{padding:18px}.stat{padding:14px}.stat strong{font-size:19px}.navbtn{padding:10px 11px;font-size:12px}}
-@media(max-width:390px){.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.brand h1{font-size:18px}}
+/* ---------- iOS design tokens ---------- */
+:root{
+  --bg:#f2f2f7;--card:#ffffff;--card2:#f2f2f7;--sep:rgba(60,60,67,.18);
+  --label:#000000;--label2:rgba(60,60,67,.6);--label3:rgba(60,60,67,.3);
+  --blue:#007aff;--green:#34c759;--red:#ff3b30;--orange:#ff9500;--purple:#af52de;--teal:#5ac8fa;
+  --fill:rgba(120,120,128,.12);--shadow:0 1px 2px rgba(0,0,0,.04);
+  --hero1:#007aff;--hero2:#5856d6;
+  --navbg:rgba(249,249,249,.94);--sheetbg:#f2f2f7;--inputbg:#ffffff;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--sep:rgba(84,84,88,.65);
+  --label:#ffffff;--label2:rgba(235,235,245,.6);--label3:rgba(235,235,245,.3);
+  --blue:#0a84ff;--green:#30d158;--red:#ff453a;--orange:#ff9f0a;--purple:#bf5af2;--teal:#64d2ff;
+  --fill:rgba(120,120,128,.36);--shadow:none;
+  --hero1:#0a84ff;--hero2:#5e5ce6;
+  --navbg:rgba(28,28,30,.94);--sheetbg:#1c1c1e;--inputbg:#2c2c2e;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--sep:rgba(84,84,88,.65);
+    --label:#ffffff;--label2:rgba(235,235,245,.6);--label3:rgba(235,235,245,.3);
+    --blue:#0a84ff;--green:#30d158;--red:#ff453a;--orange:#ff9f0a;--purple:#bf5af2;--teal:#64d2ff;
+    --fill:rgba(120,120,128,.36);--shadow:none;
+    --hero1:#0a84ff;--hero2:#5e5ce6;
+    --navbg:rgba(28,28,30,.94);--sheetbg:#1c1c1e;--inputbg:#2c2c2e;
+    color-scheme:dark;
+  }
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;background:var(--bg);color:var(--label);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:17px;line-height:1.35;-webkit-font-smoothing:antialiased;
+}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 120px}
+
+/* ---------- Large title header ---------- */
+.header{display:flex;align-items:flex-end;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 14px) 0 10px;gap:12px}
+.header .sub{font-size:13px;color:var(--label2);text-transform:uppercase;letter-spacing:.2px;font-weight:600}
+.header h1{font-size:34px;font-weight:700;letter-spacing:.37px;margin:2px 0 0}
+.hdr-actions{display:flex;gap:10px;align-items:center}
+.circle-btn{width:36px;height:36px;border-radius:50%;border:0;background:var(--fill);display:grid;place-items:center;font-size:16px;color:var(--blue);position:relative;cursor:pointer}
+.badge{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;border-radius:10px;font-size:11px;font-weight:700;min-width:18px;height:18px;padding:0 5px;display:flex;align-items:center;justify-content:center}
+.pill{background:var(--fill);color:var(--label);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+
+/* segmented control for theme */
+.seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;margin:6px 0 14px}
+.seg button{flex:1;border:0;background:transparent;padding:7px 8px;border-radius:7px;font-size:13px;font-weight:600;color:var(--label);cursor:pointer}
+.seg button.on{background:var(--card);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+
+/* ---------- Hero card ---------- */
+.hero{border-radius:20px;padding:20px;color:#fff;background:linear-gradient(135deg,var(--hero1),var(--hero2));margin-bottom:20px;box-shadow:var(--shadow)}
+.hero .eyebrow{font-size:13px;opacity:.85;font-weight:600}
+.hero .balance{font-size:40px;font-weight:700;letter-spacing:.3px;margin:4px 0 16px;font-variant-numeric:tabular-nums}
+.hero-foot{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.hero-foot span{font-size:12px;opacity:.8;display:block}
+.hero-foot b{font-size:16px;font-variant-numeric:tabular-nums}
+
+/* ---------- Section & grouped list ---------- */
+.section-title{font-size:13px;text-transform:uppercase;color:var(--label2);padding:0 16px 6px;letter-spacing:-.08px;display:flex;justify-content:space-between;align-items:center}
+.section-title button{background:none;border:0;color:var(--blue);font-size:15px;text-transform:none;font-weight:500;cursor:pointer}
+.group{background:var(--card);border-radius:12px;overflow:hidden;margin-bottom:22px;box-shadow:var(--shadow)}
+.row{display:flex;align-items:center;gap:12px;padding:11px 16px;min-height:44px;position:relative}
+.row+.row:before{content:"";position:absolute;left:16px;right:0;top:0;height:.5px;background:var(--sep)}
+.row .grow{flex:1;min-width:0}
+.row .title{font-size:17px;font-weight:400;overflow-wrap:anywhere}
+.row .meta{font-size:13px;color:var(--label2);margin-top:1px}
+.row .val{font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.icon{width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:#fff;font-size:15px;flex:none}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--card);border-radius:12px;overflow:hidden;margin-bottom:22px;box-shadow:var(--shadow)}
+.stat-grid .cell{padding:14px 12px;text-align:left;position:relative}
+.stat-grid .cell+.cell:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:.5px;background:var(--sep)}
+.cell .label{font-size:12px;color:var(--label2);font-weight:500}
+.cell strong{display:block;font-size:17px;margin-top:4px;font-variant-numeric:tabular-nums}
+
+.green{color:var(--green)}.red{color:var(--red)}.blue{color:var(--blue)}
+
+/* progress */
+.bar{height:6px;background:var(--fill);border-radius:6px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;width:0;background:var(--blue);border-radius:6px;transition:width .4s ease}
+.bar i.ok{background:var(--green)}.bar i.warn{background:var(--orange)}.bar i.over{background:var(--red)}
+
+/* Buttons */
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:600;font-size:17px;background:var(--blue);color:#fff;cursor:pointer;width:100%}
+.btn.plain{background:var(--fill);color:var(--blue)}
+.btn.small{width:auto;padding:6px 12px;font-size:15px;border-radius:999px}
+.btn.danger{background:transparent;color:var(--red);width:auto;padding:4px 8px;font-size:17px}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 22px}
+
+.empty{color:var(--label2);font-size:15px;padding:24px 16px;text-align:center}
+
+/* Tab bar (bottom, iOS style) */
+nav.tabbar{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;padding:6px 6px calc(env(safe-area-inset-bottom,0px) + 6px);background:var(--navbg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid var(--sep);z-index:10}
+.tabbtn{flex:1;background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--label2);font-size:10px;font-weight:500;padding:4px 0;cursor:pointer;max-width:120px}
+.tabbtn .gl{font-size:22px;line-height:1}
+.tabbtn.active{color:var(--blue)}
+
+/* Tab panels */
+.tabpanel{display:none}.tabpanel.active{display:block}
+
+/* Modal = iOS sheet */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;justify-content:center;z-index:20}
+.modal.show{display:flex}
+.sheet{width:100%;max-width:720px;max-height:92vh;overflow:auto;background:var(--sheetbg);border-radius:14px 14px 0 0;padding:8px 16px calc(env(safe-area-inset-bottom,0px) + 20px);animation:up .28s ease}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.sheet-grab{width:36px;height:5px;border-radius:3px;background:var(--label3);margin:4px auto 10px}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.sheet-head h2{font-size:17px;font-weight:600;margin:0;flex:1;text-align:center}
+.sheet-head button{background:none;border:0;color:var(--blue);font-size:17px;cursor:pointer;padding:6px 2px;min-width:60px;text-align:left}
+.sheet-head button.r{text-align:right}
+.form-group{background:var(--card);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.field{display:flex;align-items:center;gap:12px;padding:11px 16px;position:relative}
+.field+.field:before{content:"";position:absolute;left:16px;right:0;top:0;height:.5px;background:var(--sep)}
+.field label{font-size:17px;min-width:96px}
+.field input,.field select{flex:1;min-width:0;border:0;background:transparent;font-size:17px;text-align:right;outline:none;color:var(--label)}
+.field input::placeholder{color:var(--label3)}
+.field.stack{flex-direction:column;align-items:stretch;gap:4px}
+.field.stack label{min-width:0;font-size:13px;color:var(--label2)}
+.field.stack input,.field.stack select{text-align:left}
+.type-seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;margin-bottom:14px}
+.type-seg button{flex:1;border:0;background:transparent;padding:7px;border-radius:7px;font-weight:600;font-size:14px;color:var(--label);cursor:pointer}
+.type-seg button.on{background:var(--card);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+
+.note{font-size:13px;color:var(--label2);padding:8px 16px 0;line-height:1.4}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 84px);transform:translateX(-50%);background:var(--card2);color:var(--label);padding:10px 16px;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.2);font-size:15px;display:none;z-index:30;max-width:90vw;text-align:center}
+.toast.show{display:block}
+
+.tx-amount{font-variant-numeric:tabular-nums}
+.del{background:none;border:0;color:var(--red);font-size:20px;padding:0 4px;cursor:pointer}
+.swatch{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header class="top"><div class="brand"><div class="logo">✦</div><div><h1>My Finance</h1><small>Glass Edition · Your money, in balance.</small></div></div><div class="topactions"><button class="iconbtn" id="bell" aria-label="Notifications">♧<span class="badgecount" id="notificationCount" hidden>0</span></button><div class="month" id="monthLabel"></div></div></header>
-<section class="hero"><div class="eyebrow">Available balance · this month</div><div class="balance" id="balance">₹0</div><div class="hero-foot"><div><span>INCOME</span><b id="heroIncome">₹0</b></div><div><span>EXPENSES</span><b id="heroExpense">₹0</b></div><div><span>SAVED</span><b id="heroSaved">₹0</b></div></div></section>
-<section class="stats"><div class="glass stat"><div class="label"><i class="dot" style="background:#20a77a"></i>Total income</div><strong class="green" id="income">₹0</strong><small>Money received</small></div><div class="glass stat"><div class="label"><i class="dot" style="background:#e56d78"></i>Total expenses</div><strong class="red" id="expense">₹0</strong><small>Money spent</small></div><div class="glass stat"><div class="label"><i class="dot" style="background:#8d73ee"></i>Savings rate</div><strong id="rate">0%</strong><small>Of this month's income</small></div></section>
+
+<!-- ============ HOME ============ -->
 <section class="tabpanel active" id="dashboard">
-<div class="grid">
-<section class="glass panel"><div class="panel-head"><h2>Monthly budget</h2><button class="btn secondary small" id="setBudgetBtn">Set budget</button></div><div class="sub">Total monthly spending</div><div class="rowline"><b id="budgetNumbers">₹0 / ₹0</b><b id="budgetPercent">0%</b></div><div class="bar"><i id="budgetBar"></i></div><div class="rowline"><span class="sub" id="budgetHint">Set a budget to track spending.</span><b id="budgetRemain">₹0 left</b></div><div class="actions" style="margin-top:18px"><button class="btn" onclick="openTransaction('expense')">＋ Add expense</button><button class="btn secondary" onclick="openTransaction('income')">＋ Add income</button></div></section>
-<section class="glass panel"><div class="panel-head"><h2>Savings goals</h2><button class="btn secondary small" id="addGoalBtn">＋ Goal</button></div><div id="goalPreview" class="empty">No goals yet. Create your first savings goal.</div></section>
-</div>
-<section class="glass panel transactions"><div class="panel-head"><h2>Recent activity</h2><span class="sub">Latest entries</span></div><div id="recentList" class="empty">No transactions yet.</div></section>
+  <header class="header">
+    <div>
+      <div class="sub" id="monthLabel"></div>
+      <h1>Summary</h1>
+    </div>
+    <div class="hdr-actions">
+      <button class="circle-btn" id="bell" aria-label="Notifications">🔔<span class="badge" id="notificationCount" hidden>0</span></button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="eyebrow">Net balance · this month</div>
+    <div class="balance" id="balance">₹0</div>
+    <div class="hero-foot">
+      <div><span>Income</span><b id="heroIncome">₹0</b></div>
+      <div><span>Expenses</span><b id="heroExpense">₹0</b></div>
+      <div><span>Saved</span><b id="heroSaved">₹0</b></div>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="cell"><div class="label">Income</div><strong class="green" id="income">₹0</strong></div>
+    <div class="cell"><div class="label">Expenses</div><strong class="red" id="expense">₹0</strong></div>
+    <div class="cell"><div class="label">Savings rate</div><strong id="rate">0%</strong></div>
+  </div>
+
+  <div class="section-title"><span>Monthly budget</span><button id="setBudgetBtn">Edit</button></div>
+  <div class="group">
+    <div class="row" style="flex-wrap:wrap">
+      <div class="grow">
+        <div class="title" id="budgetNumbers">₹0 / ₹0</div>
+        <div class="bar"><i id="budgetBar"></i></div>
+        <div class="meta" id="budgetHint">Set a budget to track spending.</div>
+      </div>
+      <div class="val" id="budgetPercent">0%</div>
+    </div>
+    <div class="row"><div class="grow title">Remaining</div><div class="val" id="budgetRemain">₹0</div></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="openTransaction('expense')">Add expense</button>
+    <button class="btn plain" onclick="openTransaction('income')">Add income</button>
+  </div>
+
+  <div class="section-title"><span>Savings goals</span><button id="addGoalBtn">Add</button></div>
+  <div class="group" id="goalPreview"><div class="empty">No goals yet. Create your first savings goal.</div></div>
+
+  <div class="section-title"><span>Recent</span></div>
+  <div class="group" id="recentList"><div class="empty">No transactions yet.</div></div>
 </section>
-<section class="tabpanel" id="transactions"><section class="glass panel"><div class="panel-head"><h2>All transactions</h2><button class="btn" onclick="openTransaction('expense')">＋ Add new</button></div><div id="allTransactions" class="empty">No transactions yet.</div></section></section>
-<section class="tabpanel" id="goalsPanel"><div class="grid"><section class="glass panel"><div class="panel-head"><h2>Savings goals</h2><button class="btn" id="addGoalBtn2">＋ Add goal</button></div><div id="allGoals" class="empty">No goals yet.</div></section><section class="glass panel"><h2>Category budgets</h2><form id="categoryBudgetForm"><label class="field">Category<select id="budgetCategory"><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Education</option><option>Entertainment</option><option>Other</option></select></label><label class="field">Monthly limit (₹)<input id="categoryLimit" type="number" min="1" required placeholder="e.g. 3000"></label><button class="btn">Save category budget</button></form><div id="categoryBudgetList"></div></section></div></section>
-<section class="tabpanel" id="reports"><section class="glass panel"><h2>Monthly report</h2><div class="stats"><div class="stat"><label class="sub">Income</label><strong class="green" id="reportIncome">₹0</strong></div><div class="stat"><label class="sub">Expenses</label><strong class="red" id="reportExpense">₹0</strong></div><div class="stat"><label class="sub">Net savings</label><strong id="reportSavings">₹0</strong></div></div><h2 style="margin-top:20px">Spending by category</h2><div id="categoryReport" class="empty">No spending recorded.</div><div class="notice">Net savings here means recorded income minus recorded expenses for the selected calendar month. It is not a bank balance.</div></section></section>
-<section class="tabpanel" id="settings"><div class="grid"><section class="glass panel"><h2>Backup & restore</h2><p class="sub">Export a JSON backup regularly. Restoring a backup replaces the records currently stored in this browser.</p><div class="actions"><button class="btn" id="exportBtn">↓ Export backup</button><button class="btn secondary" id="importBtn">↑ Restore backup</button><input id="restoreFile" type="file" accept="application/json,.json" hidden></div><div class="notice">Your records are stored locally in this browser on this device. Clearing Chrome site data, resetting/uninstalling the browser, or changing phones can remove them unless you export a backup first.</div></section><section class="glass panel"><h2>Notifications</h2><p class="sub">Budget alerts appear inside this app. You can also allow browser notifications while the app is open.</p><button class="btn" id="enableBrowserNotifications">Enable push notifications</button><p class="sub" id="permissionStatus" style="margin-top:10px">Push permission not requested.</p><div id="pushTokenBox" style="display:none;margin-top:12px"><label class="field">This device registration token <textarea id="pushToken" rows="4" readonly style="width:100%;padding:10px;border:1px solid #e1e6f2;border-radius:12px;background:#ffffffc9;color:#172033;overflow-wrap:anywhere"></textarea></label><button class="btn secondary small" id="copyPushToken">Copy device token</button><p class="sub">Use this token in Firebase Console → Messaging → Send test message.</p></div><div class="notice">Firebase push can deliver messages while the app is closed, but it needs a sender/backend to decide when to send them. Your private transactions remain on this device; this setup does not upload them.</div></section></div></section>
-<nav><button class="navbtn active" data-tab="dashboard">⌂ Home</button><button class="navbtn" data-tab="transactions">Transactions</button><button class="navbtn" data-tab="goalsPanel">Goals</button><button class="navbtn" data-tab="reports">Reports</button><button class="navbtn" data-tab="settings">Settings</button></nav>
+
+<!-- ============ TRANSACTIONS ============ -->
+<section class="tabpanel" id="transactions">
+  <header class="header"><div><h1>Transactions</h1></div>
+    <div class="hdr-actions"><button class="circle-btn" onclick="openTransaction('expense')" aria-label="Add">＋</button></div>
+  </header>
+  <div class="group" id="allTransactions"><div class="empty">Your transaction history will appear here.</div></div>
+</section>
+
+<!-- ============ GOALS ============ -->
+<section class="tabpanel" id="goalsPanel">
+  <header class="header"><div><h1>Goals</h1></div>
+    <div class="hdr-actions"><button class="circle-btn" id="addGoalBtn2" aria-label="Add goal">＋</button></div>
+  </header>
+  <div class="section-title"><span>Savings</span></div>
+  <div class="group" id="allGoals"><div class="empty">No goals yet.</div></div>
+
+  <div class="section-title"><span>Category budgets</span></div>
+  <div class="group">
+    <form id="categoryBudgetForm" style="margin:0">
+      <div class="field"><label>Category</label>
+        <select id="budgetCategory"><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Education</option><option>Entertainment</option><option>Other</option></select>
+      </div>
+      <div class="field"><label>Limit (₹)</label><input id="categoryLimit" type="number" min="1" required placeholder="e.g. 3000"></div>
+      <div style="padding:10px 16px"><button class="btn" type="submit">Save category budget</button></div>
+    </form>
+  </div>
+  <div class="group" id="categoryBudgetList"></div>
+</section>
+
+<!-- ============ REPORTS ============ -->
+<section class="tabpanel" id="reports">
+  <header class="header"><div><h1>Reports</h1></div></header>
+  <div class="stat-grid">
+    <div class="cell"><div class="label">Income</div><strong class="green" id="reportIncome">₹0</strong></div>
+    <div class="cell"><div class="label">Expenses</div><strong class="red" id="reportExpense">₹0</strong></div>
+    <div class="cell"><div class="label">Net</div><strong id="reportSavings">₹0</strong></div>
+  </div>
+  <div class="section-title"><span>Spending by category</span></div>
+  <div class="group" id="categoryReport"><div class="empty">No spending recorded.</div></div>
+  <div class="note">Net here means recorded income minus recorded expenses for the selected month. It is not a bank balance.</div>
+</section>
+
+<!-- ============ SETTINGS ============ -->
+<section class="tabpanel" id="settings">
+  <header class="header"><div><h1>Settings</h1></div></header>
+
+  <div class="section-title"><span>Appearance</span></div>
+  <div class="group" style="padding:12px 16px">
+    <div class="seg" role="tablist" aria-label="Theme">
+      <button data-theme-choice="system" class="on">System</button>
+      <button data-theme-choice="light">Light</button>
+      <button data-theme-choice="dark">Dark</button>
+    </div>
+  </div>
+
+  <div class="section-title"><span>Backup</span></div>
+  <div class="group">
+    <div class="row"><div class="grow"><div class="title">Export backup</div><div class="meta">Save a JSON copy of your data</div></div><button class="btn small" id="exportBtn">Export</button></div>
+    <div class="row"><div class="grow"><div class="title">Restore backup</div><div class="meta">Replaces data stored in this browser</div></div><button class="btn small plain" id="importBtn">Restore</button></div>
+    <input id="restoreFile" type="file" accept="application/json,.json" hidden>
+  </div>
+  <div class="note">Records are stored locally in this browser. Clearing site data or changing devices can remove them unless you export a backup first.</div>
+
+  <div class="section-title" style="margin-top:22px"><span>Notifications</span></div>
+  <div class="group">
+    <div class="row"><div class="grow"><div class="title">System notifications</div><div class="meta" id="permissionStatus">Not requested</div></div><button class="btn small" id="enableBrowserNotifications">Enable</button></div>
+    <div id="fcmTokenArea" hidden style="padding:12px 16px">
+      <div class="meta" style="margin-bottom:6px">Device token (keep private)</div>
+      <textarea id="fcmTokenBox" readonly rows="3" style="width:100%;padding:10px;border:0;border-radius:10px;background:var(--card2);color:var(--label);font:11px ui-monospace,monospace;overflow-wrap:anywhere"></textarea>
+      <button class="btn small plain" id="copyFcmToken" style="margin-top:8px">Copy token</button>
+    </div>
+  </div>
+  <div class="note">Scheduled notifications while the app is fully closed need a native app or a properly configured installable web app.</div>
+</section>
+
 </div>
-<div class="modal" id="transactionModal"><div class="glass dialog"><h2 id="transactionTitle">Add expense</h2><form id="transactionForm"><div class="formgrid"><label class="field">Type<select id="txType"><option value="expense">Expense</option><option value="income">Income</option></select></label><label class="field">Amount (₹)<input id="txAmount" type="number" min="0.01" step="0.01" required placeholder="0.00"></label><label class="field">Category<select id="txCategory"><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Education</option><option>Entertainment</option><option>Salary</option><option>Freelance</option><option>Other</option></select></label><label class="field">Date<input id="txDate" type="date" required></label><label class="field full">Note (optional)<input id="txNote" maxlength="100" placeholder="What was this for?"></label></div><div class="form-actions"><button class="btn" type="submit">Save entry</button><button class="btn secondary" type="button" data-close="transactionModal">Cancel</button></div></form></div></div>
-<div class="modal" id="goalModal"><div class="glass dialog"><h2>New savings goal</h2><form id="goalForm"><label class="field">Goal name<input id="goalName" required maxlength="50" placeholder="e.g. New phone"></label><div class="formgrid"><label class="field">Target amount (₹)<input id="goalTarget" type="number" min="1" required></label><label class="field">Already saved (₹)<input id="goalSaved" type="number" min="0" value="0"></label></div><label class="field">Target date (optional)<input id="goalDate" type="date"></label><div class="form-actions"><button class="btn">Create goal</button><button class="btn secondary" type="button" data-close="goalModal">Cancel</button></div></form></div></div>
-<div class="modal" id="budgetModal"><div class="glass dialog"><h2>Set monthly budget</h2><form id="budgetForm"><label class="field">Monthly budget (₹)<input id="monthlyBudgetInput" type="number" min="1" required placeholder="e.g. 20000"></label><div class="form-actions"><button class="btn">Save budget</button><button class="btn secondary" type="button" data-close="budgetModal">Cancel</button></div></form></div></div>
-<div class="modal" id="notificationModal"><div class="glass dialog"><div class="panel-head"><h2>Notifications</h2><button class="btn secondary small" id="clearNotifications">Clear all</button></div><div id="notificationList" class="empty">You're all caught up.</div><div class="form-actions"><button class="btn secondary" type="button" data-close="notificationModal">Close</button></div></div></div>
+
+<!-- Tab bar -->
+<nav class="tabbar">
+  <button class="tabbtn active" data-tab="dashboard"><span class="gl">◉</span>Summary</button>
+  <button class="tabbtn" data-tab="transactions"><span class="gl">≡</span>Transactions</button>
+  <button class="tabbtn" data-tab="goalsPanel"><span class="gl">◎</span>Goals</button>
+  <button class="tabbtn" data-tab="reports"><span class="gl">▤</span>Reports</button>
+  <button class="tabbtn" data-tab="settings"><span class="gl">⚙</span>Settings</button>
+</nav>
+
+<!-- Transaction sheet -->
+<div class="modal" id="transactionModal"><div class="sheet">
+  <div class="sheet-grab"></div>
+  <div class="sheet-head"><button data-close="transactionModal">Cancel</button><h2 id="transactionTitle">Add expense</h2><button class="r" form="transactionForm" type="submit">Save</button></div>
+  <form id="transactionForm">
+    <div class="type-seg">
+      <button type="button" data-txtype="expense" class="on">Expense</button>
+      <button type="button" data-txtype="income">Income</button>
+    </div>
+    <input type="hidden" id="txType" value="expense">
+    <div class="form-group">
+      <div class="field"><label>Amount</label><input id="txAmount" type="number" min="0.01" step="0.01" required placeholder="₹0.00"></div>
+      <div class="field"><label>Category</label>
+        <select id="txCategory"><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Education</option><option>Entertainment</option><option>Salary</option><option>Freelance</option><option>Other</option></select>
+      </div>
+      <div class="field"><label>Date</label><input id="txDate" type="date" required></div>
+      <div class="field"><label>Note</label><input id="txNote" maxlength="100" placeholder="Optional"></div>
+    </div>
+  </form>
+</div></div>
+
+<!-- Goal sheet -->
+<div class="modal" id="goalModal"><div class="sheet">
+  <div class="sheet-grab"></div>
+  <div class="sheet-head"><button data-close="goalModal">Cancel</button><h2>New goal</h2><button class="r" form="goalForm" type="submit">Create</button></div>
+  <form id="goalForm">
+    <div class="form-group">
+      <div class="field"><label>Name</label><input id="goalName" required maxlength="50" placeholder="e.g. New phone"></div>
+      <div class="field"><label>Target (₹)</label><input id="goalTarget" type="number" min="1" required></div>
+      <div class="field"><label>Saved (₹)</label><input id="goalSaved" type="number" min="0" value="0"></div>
+      <div class="field"><label>Target date</label><input id="goalDate" type="date"></div>
+    </div>
+  </form>
+</div></div>
+
+<!-- Budget sheet -->
+<div class="modal" id="budgetModal"><div class="sheet">
+  <div class="sheet-grab"></div>
+  <div class="sheet-head"><button data-close="budgetModal">Cancel</button><h2>Monthly budget</h2><button class="r" form="budgetForm" type="submit">Save</button></div>
+  <form id="budgetForm">
+    <div class="form-group">
+      <div class="field"><label>Budget (₹)</label><input id="monthlyBudgetInput" type="number" min="1" required placeholder="e.g. 20000"></div>
+    </div>
+  </form>
+</div></div>
+
+<!-- Notifications sheet -->
+<div class="modal" id="notificationModal"><div class="sheet">
+  <div class="sheet-grab"></div>
+  <div class="sheet-head"><button id="clearNotifications">Clear</button><h2>Notifications</h2><button class="r" data-close="notificationModal">Done</button></div>
+  <div class="group" id="notificationList"><div class="empty">You're all caught up.</div></div>
+</div></div>
+
 <div class="toast" id="toast"></div>
+
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
 <script>
 'use strict';
 const STORAGE_KEY='myFinance_v1';
+const THEME_KEY='myFinance_theme';
+const FIREBASE_CONFIG = {"apiKey":"AIzaSyBGFiYS89iQzDdZfqo6B-3D6pSoemqDBnc","authDomain":"myfinance-adaf1.firebaseapp.com","projectId":"myfinance-adaf1","storageBucket":"myfinance-adaf1.firebasestorage.app","messagingSenderId":"462114551555","appId":"1:462114551555:web:21e0d9a3eb42ec6e0adb36","measurementId":"G-L2674Y7E6N"};
+const FCM_VAPID_KEY = 'BKGsG38WOIYr8xvTO2z6DsBxvphYPI8eRofkFXCRmyIp1cPSmDcKBBFnJ_0FfpUqenu0ZLfCsefjVVNaEVrcyqs';
+let firebaseMessaging = null;
+
 const $=id=>document.getElementById(id);
 const today=()=>new Date().toISOString().slice(0,10);
 const monthKey=()=>today().slice(0,7);
 const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(Number(n)||0);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ICON_COLORS={Food:'#ff9500',Travel:'#5ac8fa',Shopping:'#af52de',Bills:'#ff3b30',Health:'#ff2d55',Education:'#5856d6',Entertainment:'#ffcc00',Salary:'#34c759',Freelance:'#30b0c7',Other:'#8e8e93'};
+const ICON_GLYPH={Food:'🍽',Travel:'✈',Shopping:'🛍',Bills:'🧾',Health:'♥',Education:'🎓',Entertainment:'🎬',Salary:'₹',Freelance:'💼',Other:'•'};
+
 let data={entries:[],goals:[],budget:0,categoryBudgets:{},notifications:[],lastDailySummary:''};
+
+/* ---------- Theme ---------- */
+function applyTheme(choice){
+  const root=document.documentElement;
+  if(choice==='system'){root.removeAttribute('data-theme');}
+  else root.setAttribute('data-theme',choice);
+  const dark = choice==='dark' || (choice==='system' && matchMedia('(prefers-color-scheme: dark)').matches);
+  $('themeMeta').setAttribute('content', dark?'#000000':'#f2f2f7');
+  document.querySelectorAll('[data-theme-choice]').forEach(b=>b.classList.toggle('on',b.dataset.themeChoice===choice));
+  try{localStorage.setItem(THEME_KEY,choice);}catch(e){}
+}
+
+/* ---------- Data ---------- */
 function loadData(){
  try{
   const raw=localStorage.getItem(STORAGE_KEY);
@@ -65,11 +386,10 @@ function loadData(){
  if(!Array.isArray(data.goals))data.goals=[];
  if(!data.categoryBudgets||typeof data.categoryBudgets!=='object')data.categoryBudgets={};
  if(!Array.isArray(data.notifications))data.notifications=[];
- // Compatibility: earlier build stored entries as {kind,description,amount,category,date}.
  data.entries=data.entries.map(x=>({...x,type:x.type||(x.kind==='income'?'income':'expense'),note:x.note??x.description??''}));
 }
-function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){showToast('Could not save. Please export a backup and check browser storage.');}}
-function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2500);}
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){showToast('Could not save. Export a backup and check storage.');}}
+function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(showToast._t);showToast._t=setTimeout(()=>$('toast').classList.remove('show'),2200);}
 function monthEntries(){return data.entries.filter(x=>String(x.date||'').slice(0,7)===monthKey());}
 function totals(items){return items.reduce((a,x)=>{a[x.type]=(a[x.type]||0)+Number(x.amount||0);return a;},{income:0,expense:0});}
 function addNotification(title,message,key){
@@ -94,126 +414,183 @@ function maybeDailySummary(){
  if(todays.length){addNotification('Daily money summary',`Today: ${money(s.expense)} spent and ${money(s.income)} received across ${todays.length} entries.`,`${key}-daily-summary`);}
  data.lastDailySummary=key;saveData();
 }
+function barClass(p){return p>=100?'over':p>=90?'warn':'ok';}
+
+/* ---------- Renderers ---------- */
 function renderTransaction(x){
- const sign=x.type==='income'?'+':'−',color=x.type==='income'?'green':'red',symbol=x.type==='income'?'↙':'↗';
- return `<div class="transaction"><div class="ico">${symbol}</div><div class="tx"><b>${esc(x.category||'Other')}${x.note?' · '+esc(x.note):''}</b><small>${esc(x.date||'')} · ${x.type}</small></div><div class="amount ${color}">${sign}${money(x.amount)} <button class="btn secondary small" style="padding:5px 8px;margin-left:4px" onclick="deleteEntry('${esc(x.id)}')">×</button></div></div>`;
+ const isIn=x.type==='income';
+ const cat=x.category||'Other';
+ const color=ICON_COLORS[cat]||'#8e8e93';
+ const glyph=ICON_GLYPH[cat]||'•';
+ return `<div class="row">
+   <div class="icon" style="background:${color}">${glyph}</div>
+   <div class="grow"><div class="title">${esc(cat)}${x.note?' · '+esc(x.note):''}</div><div class="meta">${esc(x.date||'')}</div></div>
+   <div class="val ${isIn?'green':''}">${isIn?'+':'−'}${money(x.amount)}</div>
+   <button class="del" onclick="deleteEntry('${esc(x.id)}')" aria-label="Delete">×</button>
+ </div>`;
 }
 function renderGoals(){
- const markup=data.goals.map((g,i)=>{const target=Number(g.target)||0,saved=Number(g.current??g.saved)||0,p=target?Math.min(100,saved/target*100):0;return `<div class="goal"><div class="goalrow"><b>${esc(g.name)}</b><span>${Math.round(p)}%</span></div><div class="bar"><i style="width:${p}%"></i></div><div class="goalrow"><span class="sub">${money(saved)} / ${money(target)}</span><button class="btn secondary small" onclick="addGoalSavings(${i})">＋ Add savings</button></div></div>`;}).join('');
+ const markup=data.goals.map((g,i)=>{
+   const target=Number(g.target)||0,saved=Number(g.current??g.saved)||0,p=target?Math.min(100,saved/target*100):0;
+   return `<div class="row" style="flex-wrap:wrap">
+     <div class="grow">
+       <div class="title">${esc(g.name)}</div>
+       <div class="bar"><i class="${p>=100?'ok':''}" style="width:${p}%"></i></div>
+       <div class="meta">${money(saved)} of ${money(target)} · ${Math.round(p)}%</div>
+     </div>
+     <button class="btn small plain" onclick="addGoalSavings(${i})">Add</button>
+   </div>`;
+ }).join('');
  $('goalPreview').innerHTML=markup||'<div class="empty">No goals yet. Create your first savings goal.</div>';
  $('allGoals').innerHTML=markup||'<div class="empty">No goals yet.</div>';
 }
 function render(){
  evaluateBudgetAlerts();
  const items=monthEntries(),s=totals(items),net=s.income-s.expense;
- $('monthLabel').textContent=new Date().toLocaleDateString('en-IN',{month:'short',year:'numeric'});
- $('balance').textContent=money(net);$('heroIncome').textContent=money(s.income);$('heroExpense').textContent=money(s.expense);$('heroSaved').textContent=money(Math.max(0,net));
- $('income').textContent=money(s.income);$('expense').textContent=money(s.expense);$('rate').textContent=s.income?Math.round(net/s.income*100)+'%':'0%';
- $('budgetNumbers').textContent=`${money(s.expense)} / ${money(data.budget)}`;
- const pct=data.budget?Math.min(100,s.expense/data.budget*100):0;
- $('budgetBar').style.width=pct+'%';$('budgetPercent').textContent=Math.round(data.budget?s.expense/data.budget*100:0)+'%';
- $('budgetRemain').textContent=money(Math.max(0,Number(data.budget)-s.expense))+' left';
- $('budgetHint').textContent=!data.budget?'Set a budget to track spending.':pct>=100?'You have reached your budget limit.':pct>=90?'You are close to your budget limit.':'Budget usage this month.';
+ $('monthLabel').textContent=new Date().toLocaleDateString('en-IN',{month:'long',year:'numeric'});
+ $('balance').textContent=money(net);
+ $('heroIncome').textContent=money(s.income);$('heroExpense').textContent=money(s.expense);$('heroSaved').textContent=money(Math.max(0,net));
+ $('income').textContent=money(s.income);$('expense').textContent=money(s.expense);
+ $('rate').textContent=s.income?Math.round(net/s.income*100)+'%':'0%';
+
+ $('budgetNumbers').textContent=`${money(s.expense)} of ${money(data.budget)}`;
+ const rawPct=data.budget?s.expense/data.budget*100:0;
+ const pct=Math.min(100,rawPct);
+ $('budgetBar').style.width=pct+'%';
+ $('budgetBar').className=barClass(rawPct);
+ $('budgetPercent').textContent=Math.round(rawPct)+'%';
+ $('budgetRemain').textContent=money(Math.max(0,Number(data.budget)-s.expense));
+ $('budgetHint').textContent=!data.budget?'Set a budget to track spending.':rawPct>=100?'Budget limit reached.':rawPct>=90?'Close to your limit.':'Usage this month.';
+
  const sorted=[...data.entries].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
  $('recentList').innerHTML=sorted.slice(0,7).map(renderTransaction).join('')||'<div class="empty">No transactions yet. Add your first income or expense.</div>';
  $('allTransactions').innerHTML=sorted.map(renderTransaction).join('')||'<div class="empty">Your transaction history will appear here.</div>';
  renderGoals();
+
  const cats={};items.filter(x=>x.type==='expense').forEach(x=>cats[x.category||'Other']=(cats[x.category||'Other']||0)+Number(x.amount||0));
- $('categoryBudgetList').innerHTML=Object.entries(data.categoryBudgets).map(([cat,limit])=>{const used=cats[cat]||0;return `<div class="listrow"><div class="rowline"><b>${esc(cat)}</b><span>${money(used)} / ${money(limit)}</span></div><div class="bar"><i style="width:${Math.min(100,used/limit*100)}%"></i></div></div>`;}).join('');
+ $('categoryBudgetList').innerHTML=Object.entries(data.categoryBudgets).map(([cat,limit])=>{
+   const used=cats[cat]||0,p=Number(limit)?used/limit*100:0;
+   return `<div class="row" style="flex-wrap:wrap">
+     <div class="grow"><div class="title">${esc(cat)}</div><div class="bar"><i class="${barClass(p)}" style="width:${Math.min(100,p)}%"></i></div><div class="meta">${money(used)} of ${money(limit)}</div></div>
+   </div>`;
+ }).join('')||'<div class="empty">No category budgets yet.</div>';
+
  $('reportIncome').textContent=money(s.income);$('reportExpense').textContent=money(s.expense);$('reportSavings').textContent=money(net);
- $('categoryReport').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([cat,value])=>`<div class="listrow"><div class="rowline"><span>${esc(cat)}</span><b>${money(value)}</b></div><div class="bar"><i style="width:${s.expense?value/s.expense*100:0}%"></i></div></div>`).join('')||'<div class="empty">No spending recorded this month.</div>';
- const unread=data.notifications.filter(n=>!n.read).length;$('notificationCount').textContent=unread;$('notificationCount').hidden=!unread;
+ $('categoryReport').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([cat,value])=>`<div class="row">
+   <div class="icon" style="background:${ICON_COLORS[cat]||'#8e8e93'}">${ICON_GLYPH[cat]||'•'}</div>
+   <div class="grow"><div class="title">${esc(cat)}</div><div class="bar"><i style="width:${s.expense?value/s.expense*100:0}%"></i></div></div>
+   <div class="val">${money(value)}</div></div>`).join('')||'<div class="empty">No spending recorded this month.</div>';
+
+ const unread=data.notifications.filter(n=>!n.read).length;
+ $('notificationCount').textContent=unread;$('notificationCount').hidden=!unread;
 }
-function openTransaction(type){$('txType').value=type;$('transactionTitle').textContent=type==='income'?'Add income':'Add expense';$('txDate').value=today();$('txCategory').value=type==='income'?'Salary':'Food';$('txAmount').value='';$('txNote').value='';$('transactionModal').classList.add('show');}
+
+/* ---------- Actions ---------- */
+let currentTxType='expense';
+function setTxType(t){
+  currentTxType=t;$('txType').value=t;
+  document.querySelectorAll('[data-txtype]').forEach(b=>b.classList.toggle('on',b.dataset.txtype===t));
+  $('transactionTitle').textContent=t==='income'?'Add income':'Add expense';
+  $('txCategory').value=t==='income'?'Salary':'Food';
+}
+function openTransaction(type){
+  setTxType(type);$('txDate').value=today();$('txAmount').value='';$('txNote').value='';
+  $('transactionModal').classList.add('show');
+}
 function closeModal(id){$(id).classList.remove('show');}
 function deleteEntry(id){if(!confirm('Delete this transaction?'))return;data.entries=data.entries.filter(x=>String(x.id)!==String(id));saveData();render();showToast('Transaction deleted');}
 function addGoalSavings(i){const amount=Number(prompt('How much did you save towards this goal?','0'));if(amount>0){data.goals[i].current=Number(data.goals[i].current??data.goals[i].saved??0)+amount;saveData();render();showToast('Savings goal updated');}}
-function openNotifications(){data.notifications.forEach(n=>n.read=true);saveData();render();$('notificationList').innerHTML=data.notifications.map(n=>`<div class="listrow"><b>${esc(n.title)}</b><div class="sub">${esc(n.message)}</div><small class="sub">${new Date(n.createdAt).toLocaleString()}</small></div>`).join('')||'<div class="empty">You are all caught up.</div>';$('notificationModal').classList.add('show');}
-function exportBackup(){const payload={...data,exportedAt:new Date().toISOString(),app:'My Finance Glass Edition'};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='my-finance-backup-'+today()+'.json';a.click();URL.revokeObjectURL(url);showToast('Backup exported');}
+function openNotifications(){
+  data.notifications.forEach(n=>n.read=true);saveData();render();
+  $('notificationList').innerHTML=data.notifications.map(n=>`<div class="row" style="flex-wrap:wrap"><div class="grow"><div class="title">${esc(n.title)}</div><div class="meta" style="white-space:normal">${esc(n.message)}</div><div class="meta">${new Date(n.createdAt).toLocaleString()}</div></div></div>`).join('')||'<div class="empty">You are all caught up.</div>';
+  $('notificationModal').classList.add('show');
+}
+function exportBackup(){const payload={...data,exportedAt:new Date().toISOString(),app:'My Finance'};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='my-finance-backup-'+today()+'.json';a.click();URL.revokeObjectURL(url);showToast('Backup exported');}
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBGFiYS89iQzDdZfqo6B-3D6pSoemqDBnc",
-  authDomain: "myfinance-adaf1.firebaseapp.com",
-  projectId: "myfinance-adaf1",
-  messagingSenderId: "462114551555",
-  appId: "1:462114551555:web:21e0d9a3eb42ec6e0adb36"
-};
-const FIREBASE_VAPID_PUBLIC_KEY = "BKGsG38WOIYr8xvTO2z6DsBxvphYPI8eRofkFXCRmyIp1cPSmDcKBBFnJ_0FfpUqenu0ZLfCsefjVVNaEVrcyqs";
-let firebaseMessaging = null;
-(async () => {
-  try {
-    if (!window.firebase || !(await firebase.messaging.isSupported())) {
-      throw new Error("Firebase Messaging is not supported in this browser.");
-    }
-    const firebaseApp = firebase.initializeApp(firebaseConfig);
-    firebaseMessaging = firebase.messaging(firebaseApp);
-    firebaseMessaging.onMessage(payload => {
-      const title = payload.notification?.title || payload.data?.title || "My Finance";
-      const body = payload.notification?.body || payload.data?.body || "You have a new update.";
-      showToast(title + ": " + body);
-      if ("Notification" in window && Notification.permission === "granted") {
-        new Notification(title, { body, icon: "./icons/icon-192.png" });
-      }
-    });
-  } catch (err) {
-    console.warn("Firebase Messaging initialization failed:", err);
-    const status = document.getElementById("permissionStatus");
-    if (status) status.textContent = err.message || "Firebase Messaging could not initialize.";
-  }
-})();
-async function enablePushNotifications() {
-  const status = $("permissionStatus");
-  const tokenBox = $("pushTokenBox");
-  const tokenField = $("pushToken");
-  if (!firebaseMessaging) {
-    status.textContent = "Firebase Messaging is not supported in this browser or could not initialize.";
-    showToast("Push setup is not available in this browser.");
-    return;
-  }
-  if (!("Notification" in window)) {
-    status.textContent = "This browser does not support notifications.";
-    return;
-  }
-  try {
-    status.textContent = "Requesting notification permission…";
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      status.textContent = "Notification permission: " + permission;
-      return;
-    }
-    const registration = await navigator.serviceWorker.ready;
-    const token = await firebaseMessaging.getToken({
-      vapidKey: FIREBASE_VAPID_PUBLIC_KEY,
-      serviceWorkerRegistration: registration
-    });
-    if (!token) throw new Error("No FCM registration token was returned.");
-    tokenField.value = token;
-    tokenBox.style.display = "block";
-    status.textContent = "Push notifications enabled for this device. Copy the token below to send a test message from Firebase Console.";
-    showToast("This device is registered for push notifications.");
-  } catch (err) {
-    console.error("FCM registration failed:", err);
-    status.textContent = "Could not register this device: " + (err.message || err);
-    showToast("Push registration failed. Check HTTPS and Firebase settings.");
-  }
+async function requestBrowserNotifications(){
+ try{
+  if(!('Notification' in window)){showToast('Notifications are not supported here.');return;}
+  if(!('serviceWorker' in navigator)){showToast('Service workers are not supported here.');return;}
+  if(!window.firebase || !firebase.messaging){showToast('Firebase did not load. Check your connection.');return;}
+  const permission=await Notification.requestPermission();
+  $('permissionStatus').textContent='Permission: '+permission;
+  if(permission!=='granted'){showToast('Allow notifications to continue.');return;}
+  if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
+  firebaseMessaging=firebase.messaging();
+  const registration=await navigator.serviceWorker.register('./service-worker.js');
+  await navigator.serviceWorker.ready;
+  const token=await firebaseMessaging.getToken({vapidKey:FCM_VAPID_KEY,serviceWorkerRegistration:registration});
+  if(!token){$('permissionStatus').textContent='Granted, but no token was created.';showToast('Could not create notification token.');return;}
+  localStorage.setItem('myFinance_fcmToken',token);
+  $('fcmTokenBox').value=token;$('fcmTokenArea').hidden=false;
+  $('permissionStatus').textContent='Enabled';
+  showToast('System notifications enabled');
+  firebaseMessaging.onMessage(payload=>{
+   const title=payload.notification?.title||'My Finance';
+   const body=payload.notification?.body||'You have a new update.';
+   if('serviceWorker' in navigator){
+    navigator.serviceWorker.ready.then(reg=>reg.showNotification(title,{body,icon:'./icons/icon-192.png',badge:'./icons/icon-192.png',data:payload.data||{}}));
+   }
+   addNotification(title,body,'fcm-'+Date.now());
+   render();
+  });
+ }catch(err){
+  console.error('FCM setup failed:',err);
+  $('permissionStatus').textContent='Setup failed: '+(err.message||String(err));
+  showToast('Notification setup failed.');
+ }
 }
 
-function requestBrowserNotifications(){if(!('Notification'in window)){showToast('This browser does not support notifications.');return;}Notification.requestPermission().then(permission=>{$('permissionStatus').textContent='Browser notification permission: '+permission;if(permission==='granted'){new Notification('My Finance',{body:'Browser alerts are enabled while the app is active.'});showToast('Browser alerts enabled');}else showToast('Notification permission was not granted.');});}
-document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tabpanel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));}));
-$('setBudgetBtn').onclick=()=>$('budgetModal').classList.add('show');$('addGoalBtn').onclick=$('addGoalBtn2').onclick=()=>$('goalModal').classList.add('show');$('bell').onclick=openNotifications;
-$('transactionForm').onsubmit=e=>{e.preventDefault();const amount=Number($('txAmount').value);if(!(amount>0))return;data.entries.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),type:$('txType').value,amount,category:$('txCategory').value,date:$('txDate').value,note:$('txNote').value.trim()});saveData();closeModal('transactionModal');render();showToast('Entry saved automatically');};
-$('goalForm').onsubmit=e=>{e.preventDefault();data.goals.push({name:$('goalName').value.trim(),target:Number($('goalTarget').value),current:Number($('goalSaved').value)||0,date:$('goalDate').value});saveData();e.target.reset();closeModal('goalModal');render();showToast('Savings goal added');};
-$('budgetForm').onsubmit=e=>{e.preventDefault();data.budget=Number($('monthlyBudgetInput').value);saveData();closeModal('budgetModal');render();showToast('Monthly budget saved');};
+/* ---------- Wiring ---------- */
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabbtn').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.tabpanel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));
+  window.scrollTo({top:0,behavior:'instant'});
+}));
+document.querySelectorAll('[data-theme-choice]').forEach(b=>b.addEventListener('click',()=>applyTheme(b.dataset.themeChoice)));
+document.querySelectorAll('[data-txtype]').forEach(b=>b.addEventListener('click',()=>setTxType(b.dataset.txtype)));
+
+$('setBudgetBtn').onclick=()=>{$('monthlyBudgetInput').value=data.budget||'';$('budgetModal').classList.add('show');};
+$('addGoalBtn').onclick=$('addGoalBtn2').onclick=()=>$('goalModal').classList.add('show');
+$('bell').onclick=openNotifications;
+
+$('transactionForm').onsubmit=e=>{
+  e.preventDefault();
+  const amount=Number($('txAmount').value);if(!(amount>0))return;
+  data.entries.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),type:$('txType').value,amount,category:$('txCategory').value,date:$('txDate').value,note:$('txNote').value.trim()});
+  saveData();closeModal('transactionModal');render();showToast('Entry saved');
+};
+$('goalForm').onsubmit=e=>{e.preventDefault();data.goals.push({name:$('goalName').value.trim(),target:Number($('goalTarget').value),current:Number($('goalSaved').value)||0,date:$('goalDate').value});saveData();e.target.reset();closeModal('goalModal');render();showToast('Goal added');};
+$('budgetForm').onsubmit=e=>{e.preventDefault();data.budget=Number($('monthlyBudgetInput').value);saveData();closeModal('budgetModal');render();showToast('Budget saved');};
 $('categoryBudgetForm').onsubmit=e=>{e.preventDefault();data.categoryBudgets[$('budgetCategory').value]=Number($('categoryLimit').value);saveData();e.target.reset();render();showToast('Category budget saved');};
+
 $('exportBtn').onclick=exportBackup;
 $('importBtn').onclick=()=>$('restoreFile').click();
-$('restoreFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const v=JSON.parse(await f.text());const entries=Array.isArray(v.entries)?v.entries:Array.isArray(v.transactions)?v.transactions:null;if(!entries||!Array.isArray(v.goals))throw Error('Invalid backup');if(!confirm('Restore this backup? Current data will be replaced. Export a backup first if needed.'))return;data={...data,...v,entries:entries.map(x=>({...x,type:x.type||(x.kind==='income'?'income':'expense'),note:x.note??x.description??''})),goals:v.goals,categoryBudgets:v.categoryBudgets||{},notifications:v.notifications||[]};saveData();render();showToast('Backup restored');}catch(err){alert('This does not look like a valid My Finance backup.');}e.target.value='';};
+$('restoreFile').onchange=async e=>{
+  const f=e.target.files[0];if(!f)return;
+  try{
+    const v=JSON.parse(await f.text());
+    const entries=Array.isArray(v.entries)?v.entries:Array.isArray(v.transactions)?v.transactions:null;
+    if(!entries||!Array.isArray(v.goals))throw Error('Invalid backup');
+    if(!confirm('Restore this backup? Current data will be replaced.'))return;
+    data={...data,...v,entries:entries.map(x=>({...x,type:x.type||(x.kind==='income'?'income':'expense'),note:x.note??x.description??''})),goals:v.goals,categoryBudgets:v.categoryBudgets||{},notifications:v.notifications||[]};
+    saveData();render();showToast('Backup restored');
+  }catch(err){alert('This does not look like a valid My Finance backup.');}
+  e.target.value='';
+};
 $('clearNotifications').onclick=()=>{data.notifications=[];saveData();render();$('notificationList').innerHTML='<div class="empty">Notifications cleared.</div>';};
-$('enableBrowserNotifications').onclick=enablePushNotifications;
-$('copyPushToken').onclick=()=>{const t=$('pushToken').value;if(t){navigator.clipboard.writeText(t).then(()=>showToast('Device token copied')).catch(()=>showToast('Select and copy the token manually.'));}};
+$('enableBrowserNotifications').onclick=requestBrowserNotifications;
+$('copyFcmToken').onclick=async()=>{const token=$('fcmTokenBox').value;if(token){try{await navigator.clipboard.writeText(token);showToast('Token copied');}catch(e){showToast('Select and copy the token manually.');}}};
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
 document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id);}));
-loadData();maybeDailySummary();render();
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',()=>{if(!document.documentElement.hasAttribute('data-theme')||localStorage.getItem(THEME_KEY)==='system')applyTheme('system');});
+
+/* ---------- Boot ---------- */
+loadData();
+applyTheme(localStorage.getItem(THEME_KEY)||'system');
+const savedFcmToken=localStorage.getItem('myFinance_fcmToken');
+if(savedFcmToken){$('fcmTokenBox').value=savedFcmToken;$('fcmTokenArea').hidden=false;$('permissionStatus').textContent='Enabled on this device';}
+maybeDailySummary();render();
 </script>
 
 <script>
@@ -223,4 +600,5 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-</body></html>
+</body>
+</html>
