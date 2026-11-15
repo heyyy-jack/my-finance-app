@@ -37,7 +37,7 @@ nav{position:fixed;bottom:13px;left:50%;transform:translateX(-50%);display:flex;
 <section class="tabpanel" id="transactions"><section class="glass panel"><div class="panel-head"><h2>All transactions</h2><button class="btn" onclick="openTransaction('expense')">＋ Add new</button></div><div id="allTransactions" class="empty">No transactions yet.</div></section></section>
 <section class="tabpanel" id="goalsPanel"><div class="grid"><section class="glass panel"><div class="panel-head"><h2>Savings goals</h2><button class="btn" id="addGoalBtn2">＋ Add goal</button></div><div id="allGoals" class="empty">No goals yet.</div></section><section class="glass panel"><h2>Category budgets</h2><form id="categoryBudgetForm"><label class="field">Category<select id="budgetCategory"><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Education</option><option>Entertainment</option><option>Other</option></select></label><label class="field">Monthly limit (₹)<input id="categoryLimit" type="number" min="1" required placeholder="e.g. 3000"></label><button class="btn">Save category budget</button></form><div id="categoryBudgetList"></div></section></div></section>
 <section class="tabpanel" id="reports"><section class="glass panel"><h2>Monthly report</h2><div class="stats"><div class="stat"><label class="sub">Income</label><strong class="green" id="reportIncome">₹0</strong></div><div class="stat"><label class="sub">Expenses</label><strong class="red" id="reportExpense">₹0</strong></div><div class="stat"><label class="sub">Net savings</label><strong id="reportSavings">₹0</strong></div></div><h2 style="margin-top:20px">Spending by category</h2><div id="categoryReport" class="empty">No spending recorded.</div><div class="notice">Net savings here means recorded income minus recorded expenses for the selected calendar month. It is not a bank balance.</div></section></section>
-<section class="tabpanel" id="settings"><div class="grid"><section class="glass panel"><h2>Backup & restore</h2><p class="sub">Export a JSON backup regularly. Restoring a backup replaces the records currently stored in this browser.</p><div class="actions"><button class="btn" id="exportBtn">↓ Export backup</button><button class="btn secondary" id="importBtn">↑ Restore backup</button><input id="restoreFile" type="file" accept="application/json,.json" hidden></div><div class="notice">Your records are stored locally in this browser on this device. Clearing Chrome site data, resetting/uninstalling the browser, or changing phones can remove them unless you export a backup first.</div></section><section class="glass panel"><h2>Notifications</h2><p class="sub">Budget alerts appear inside this app. You can also allow browser notifications while the app is open.</p><button class="btn" id="enableBrowserNotifications">Enable browser alerts</button><p class="sub" id="permissionStatus" style="margin-top:10px">Browser permission not requested.</p><div class="notice">A normal HTML page cannot reliably send scheduled daily notifications while fully closed. For that, we will need a native Android app or a properly configured installable web app.</div></section></div></section>
+<section class="tabpanel" id="settings"><div class="grid"><section class="glass panel"><h2>Backup & restore</h2><p class="sub">Export a JSON backup regularly. Restoring a backup replaces the records currently stored in this browser.</p><div class="actions"><button class="btn" id="exportBtn">↓ Export backup</button><button class="btn secondary" id="importBtn">↑ Restore backup</button><input id="restoreFile" type="file" accept="application/json,.json" hidden></div><div class="notice">Your records are stored locally in this browser on this device. Clearing Chrome site data, resetting/uninstalling the browser, or changing phones can remove them unless you export a backup first.</div></section><section class="glass panel"><h2>Notifications</h2><p class="sub">Budget alerts appear inside this app. You can also allow browser notifications while the app is open.</p><button class="btn" id="enableBrowserNotifications">Enable push notifications</button><p class="sub" id="permissionStatus" style="margin-top:10px">Push permission not requested.</p><div id="pushTokenBox" style="display:none;margin-top:12px"><label class="field">This device registration token <textarea id="pushToken" rows="4" readonly style="width:100%;padding:10px;border:1px solid #e1e6f2;border-radius:12px;background:#ffffffc9;color:#172033;overflow-wrap:anywhere"></textarea></label><button class="btn secondary small" id="copyPushToken">Copy device token</button><p class="sub">Use this token in Firebase Console → Messaging → Send test message.</p></div><div class="notice">Firebase push can deliver messages while the app is closed, but it needs a sender/backend to decide when to send them. Your private transactions remain on this device; this setup does not upload them.</div></section></div></section>
 <nav><button class="navbtn active" data-tab="dashboard">⌂ Home</button><button class="navbtn" data-tab="transactions">Transactions</button><button class="navbtn" data-tab="goalsPanel">Goals</button><button class="navbtn" data-tab="reports">Reports</button><button class="navbtn" data-tab="settings">Settings</button></nav>
 </div>
 <div class="modal" id="transactionModal"><div class="glass dialog"><h2 id="transactionTitle">Add expense</h2><form id="transactionForm"><div class="formgrid"><label class="field">Type<select id="txType"><option value="expense">Expense</option><option value="income">Income</option></select></label><label class="field">Amount (₹)<input id="txAmount" type="number" min="0.01" step="0.01" required placeholder="0.00"></label><label class="field">Category<select id="txCategory"><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Education</option><option>Entertainment</option><option>Salary</option><option>Freelance</option><option>Other</option></select></label><label class="field">Date<input id="txDate" type="date" required></label><label class="field full">Note (optional)<input id="txNote" maxlength="100" placeholder="What was this for?"></label></div><div class="form-actions"><button class="btn" type="submit">Save entry</button><button class="btn secondary" type="button" data-close="transactionModal">Cancel</button></div></form></div></div>
@@ -45,6 +45,8 @@ nav{position:fixed;bottom:13px;left:50%;transform:translateX(-50%);display:flex;
 <div class="modal" id="budgetModal"><div class="glass dialog"><h2>Set monthly budget</h2><form id="budgetForm"><label class="field">Monthly budget (₹)<input id="monthlyBudgetInput" type="number" min="1" required placeholder="e.g. 20000"></label><div class="form-actions"><button class="btn">Save budget</button><button class="btn secondary" type="button" data-close="budgetModal">Cancel</button></div></form></div></div>
 <div class="modal" id="notificationModal"><div class="glass dialog"><div class="panel-head"><h2>Notifications</h2><button class="btn secondary small" id="clearNotifications">Clear all</button></div><div id="notificationList" class="empty">You're all caught up.</div><div class="form-actions"><button class="btn secondary" type="button" data-close="notificationModal">Close</button></div></div></div>
 <div class="toast" id="toast"></div>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
 <script>
 'use strict';
 const STORAGE_KEY='myFinance_v1';
@@ -128,6 +130,74 @@ function deleteEntry(id){if(!confirm('Delete this transaction?'))return;data.ent
 function addGoalSavings(i){const amount=Number(prompt('How much did you save towards this goal?','0'));if(amount>0){data.goals[i].current=Number(data.goals[i].current??data.goals[i].saved??0)+amount;saveData();render();showToast('Savings goal updated');}}
 function openNotifications(){data.notifications.forEach(n=>n.read=true);saveData();render();$('notificationList').innerHTML=data.notifications.map(n=>`<div class="listrow"><b>${esc(n.title)}</b><div class="sub">${esc(n.message)}</div><small class="sub">${new Date(n.createdAt).toLocaleString()}</small></div>`).join('')||'<div class="empty">You are all caught up.</div>';$('notificationModal').classList.add('show');}
 function exportBackup(){const payload={...data,exportedAt:new Date().toISOString(),app:'My Finance Glass Edition'};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='my-finance-backup-'+today()+'.json';a.click();URL.revokeObjectURL(url);showToast('Backup exported');}
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBGFiYS89iQzDdZfqo6B-3D6pSoemqDBnc",
+  authDomain: "myfinance-adaf1.firebaseapp.com",
+  projectId: "myfinance-adaf1",
+  messagingSenderId: "462114551555",
+  appId: "1:462114551555:web:21e0d9a3eb42ec6e0adb36"
+};
+const FIREBASE_VAPID_PUBLIC_KEY = "BKGsG38WOIYr8xvTO2z6DsBxvphYPI8eRofkFXCRmyIp1cPSmDcKBBFnJ_0FfpUqenu0ZLfCsefjVVNaEVrcyqs";
+let firebaseMessaging = null;
+(async () => {
+  try {
+    if (!window.firebase || !(await firebase.messaging.isSupported())) {
+      throw new Error("Firebase Messaging is not supported in this browser.");
+    }
+    const firebaseApp = firebase.initializeApp(firebaseConfig);
+    firebaseMessaging = firebase.messaging(firebaseApp);
+    firebaseMessaging.onMessage(payload => {
+      const title = payload.notification?.title || payload.data?.title || "My Finance";
+      const body = payload.notification?.body || payload.data?.body || "You have a new update.";
+      showToast(title + ": " + body);
+      if ("Notification" in window && Notification.permission === "granted") {
+        new Notification(title, { body, icon: "./icons/icon-192.png" });
+      }
+    });
+  } catch (err) {
+    console.warn("Firebase Messaging initialization failed:", err);
+    const status = document.getElementById("permissionStatus");
+    if (status) status.textContent = err.message || "Firebase Messaging could not initialize.";
+  }
+})();
+async function enablePushNotifications() {
+  const status = $("permissionStatus");
+  const tokenBox = $("pushTokenBox");
+  const tokenField = $("pushToken");
+  if (!firebaseMessaging) {
+    status.textContent = "Firebase Messaging is not supported in this browser or could not initialize.";
+    showToast("Push setup is not available in this browser.");
+    return;
+  }
+  if (!("Notification" in window)) {
+    status.textContent = "This browser does not support notifications.";
+    return;
+  }
+  try {
+    status.textContent = "Requesting notification permission…";
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") {
+      status.textContent = "Notification permission: " + permission;
+      return;
+    }
+    const registration = await navigator.serviceWorker.ready;
+    const token = await firebaseMessaging.getToken({
+      vapidKey: FIREBASE_VAPID_PUBLIC_KEY,
+      serviceWorkerRegistration: registration
+    });
+    if (!token) throw new Error("No FCM registration token was returned.");
+    tokenField.value = token;
+    tokenBox.style.display = "block";
+    status.textContent = "Push notifications enabled for this device. Copy the token below to send a test message from Firebase Console.";
+    showToast("This device is registered for push notifications.");
+  } catch (err) {
+    console.error("FCM registration failed:", err);
+    status.textContent = "Could not register this device: " + (err.message || err);
+    showToast("Push registration failed. Check HTTPS and Firebase settings.");
+  }
+}
+
 function requestBrowserNotifications(){if(!('Notification'in window)){showToast('This browser does not support notifications.');return;}Notification.requestPermission().then(permission=>{$('permissionStatus').textContent='Browser notification permission: '+permission;if(permission==='granted'){new Notification('My Finance',{body:'Browser alerts are enabled while the app is active.'});showToast('Browser alerts enabled');}else showToast('Notification permission was not granted.');});}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tabpanel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));}));
 $('setBudgetBtn').onclick=()=>$('budgetModal').classList.add('show');$('addGoalBtn').onclick=$('addGoalBtn2').onclick=()=>$('goalModal').classList.add('show');$('bell').onclick=openNotifications;
@@ -139,7 +209,8 @@ $('exportBtn').onclick=exportBackup;
 $('importBtn').onclick=()=>$('restoreFile').click();
 $('restoreFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const v=JSON.parse(await f.text());const entries=Array.isArray(v.entries)?v.entries:Array.isArray(v.transactions)?v.transactions:null;if(!entries||!Array.isArray(v.goals))throw Error('Invalid backup');if(!confirm('Restore this backup? Current data will be replaced. Export a backup first if needed.'))return;data={...data,...v,entries:entries.map(x=>({...x,type:x.type||(x.kind==='income'?'income':'expense'),note:x.note??x.description??''})),goals:v.goals,categoryBudgets:v.categoryBudgets||{},notifications:v.notifications||[]};saveData();render();showToast('Backup restored');}catch(err){alert('This does not look like a valid My Finance backup.');}e.target.value='';};
 $('clearNotifications').onclick=()=>{data.notifications=[];saveData();render();$('notificationList').innerHTML='<div class="empty">Notifications cleared.</div>';};
-$('enableBrowserNotifications').onclick=requestBrowserNotifications;
+$('enableBrowserNotifications').onclick=enablePushNotifications;
+$('copyPushToken').onclick=()=>{const t=$('pushToken').value;if(t){navigator.clipboard.writeText(t).then(()=>showToast('Device token copied')).catch(()=>showToast('Select and copy the token manually.'));}};
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
 document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id);}));
 loadData();maybeDailySummary();render();
